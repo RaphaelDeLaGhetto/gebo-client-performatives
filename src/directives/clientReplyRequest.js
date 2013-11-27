@@ -4,7 +4,6 @@
 angular.module('gebo-client-performatives').
     directive('clientReplyRequest', function () {
         return {
-            restrict: 'A',
             template: '',
         };
       });

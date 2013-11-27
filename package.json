@@ -1,6 +1,6 @@
 {
   "name": "gebo-client-performatives",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "AngularJS speech act module for gebo",
   "main": "./dist/gebo-client-performatives.min.js",
   "scripts": {

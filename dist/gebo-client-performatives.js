@@ -111,9 +111,17 @@
 (function () {
   'use strict';
   angular.module('gebo-client-performatives').directive('clientReplyRequest', function () {
+    return { template: '' };
+  });
+}());
+;
+(function () {
+  'use strict';
+  angular.module('gebo-client-performatives').directive('conversationControl', function () {
     return {
-      restrict: 'A',
-      template: ''
+      restrict: 'E',
+      scope: { type: '=type' },
+      template: '<ng-include src="templates/' + type + '.html"></ng-include>'
     };
   });
 }());
@@ -121,9 +129,6 @@
 (function () {
   'use strict';
   angular.module('gebo-client-performatives').directive('serverReplyRequest', function () {
-    return {
-      restrict: 'A',
-      template: '<button class="btn btn-small" ng-click="agree(sc._id, $event)">' + '    <span class="glyphicon glyphicon-question-sign"></span></button>' + '<button class="btn btn-small" ng-click="refuse(sc._id, $event)">' + '    <span class="glyphicon glyphicon-thumbs-down"></span></button>' + '<button class="btn btn-small" ng-click="agree(sc._id, $event)">' + '    <span class="glyphicon glyphicon-thumbs-up"></span></button>'
-    };
+    return { template: '<button class="btn btn-small" ng-click="agree(sc._id, $event)">' + '    <span class="glyphicon glyphicon-question-sign"></span></button>' + '<button class="btn btn-small" ng-click="refuse(sc._id, $event)">' + '    <span class="glyphicon glyphicon-thumbs-down"></span></button>' + '<button class="btn btn-small" ng-click="agree(sc._id, $event)">' + '    <span class="glyphicon glyphicon-thumbs-up"></span></button>' };
   });
 }());

@@ -68,7 +68,7 @@ module.exports = function(grunt) {
     copy: {
       build: {
         cwd: 'src',
-        src: ['*.html'],
+        src: ['directives/templates/*.html'],
         dest: 'dist',
         expand: true
       },

@@ -1,0 +1,25 @@
+{
+  "name": "gebo-client-performatives",
+  "version": "0.0.0",
+  "homepage": "https://github.com/RaphaelDeLaGhetto/gebo-client-performatives",
+  "authors": [
+    "Daniel Bidulock <daniel@capitolhill.ca>"
+  ],
+  "description": "AngularJS speech act module for gebo",
+  "main": "./dist/gebo-client-performatives.min.js",
+  "keywords": [
+    "gebo",
+    "speech",
+    "acts",
+    "performatives",
+    "AngularJS"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

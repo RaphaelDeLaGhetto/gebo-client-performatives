@@ -78,15 +78,52 @@
       };
     }
     ;
+    function _getDirectiveName(sc, email) {
+      var role = 'server';
+      switch (sc.performative) {
+      case 'reply request':
+        role = sc.debtor === email ? 'server' : 'client';
+        break;
+      case 'propose discharge|perform':
+        role = sc.debtor === email ? 'server' : 'client';
+        break;
+      case 'reply propose|discharge|perform':
+        role = sc.debtor === email ? 'client' : 'server';
+        break;
+      }
+      return role + '-' + sc.performative.replace(' ', '-').replace(/\|/g, '-');
+    }
+    ;
     return {
       agree: _agree,
       cancel: _cancel,
       failure: _failure,
+      getDirectiveName: _getDirectiveName,
       notUnderstood: _notUnderstood,
       proposeDischarge: _proposeDischarge,
       refuse: _refuse,
       request: _request,
       timeout: _timeout
+    };
+  });
+}());
+;
+(function () {
+  'use strict';
+  angular.module('gebo-client-performatives', []).directive('clientReplyRequest', function () {
+    return {
+      restrict: 'A',
+      template: ''
+    };
+  });
+}());
+;
+(function () {
+  'use strict';
+  angular.module('gebo-client-performatives', []).directive('serverReplyRequest', function () {
+    return {
+      restrict: 'A',
+      template: '<button class="btn btn-small" ng-click="agree(sc._id, $event)">' + '    <span class="glyphicon glyphicon-question-sign"></span></button>' + '<button class="btn btn-small" ng-click="refuse(sc._id, $event)">' + '    <span class="glyphicon glyphicon-thumbs-down"></span></button>' + '<button class="btn btn-small" ng-click="agree(sc._id, $event)">' + '    <span class="glyphicon glyphicon-thumbs-up"></span></button>'
     };
   });
 }());

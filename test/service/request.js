@@ -72,7 +72,7 @@ describe('Service: Request', function () {
     
         describe('cancel', function() {
             it('should return a \'cancel request|action\' message', function() {
-                var message = request.cancel(PROPOSE_DISCHARGE_PERFORM, CLIENT);
+                var message = request.cancel(PROPOSE_DISCHARGE_PERFORM_ACTION, CLIENT);
                 expect(message.sender).toEqual(CLIENT);
                 expect(message.receiver).toEqual(SERVER);
                 expect(message.performative).toEqual('cancel request');
@@ -112,7 +112,7 @@ describe('Service: Request', function () {
 
         describe('agree', function() {
             it('should return a \'agree propose|discharge|perform|action\' message', function() {
-                var message = request.timeout(REPLY_PROPOSE_DISCHARGE_PERFORM_ACTION, CLIENT);
+                var message = request.agree(REPLY_PROPOSE_DISCHARGE_PERFORM_ACTION, CLIENT);
                 expect(message.sender).toEqual(CLIENT);
                 expect(message.receiver).toEqual(SERVER);
                 expect(message.performative).toEqual('agree propose|discharge|perform');

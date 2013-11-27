@@ -143,10 +143,41 @@ angular.module('gebo-client-performatives', ['ngRoute', 'ngResource']).
                 };
           };
 
+        /**
+         * Get the name of the appropriate directive
+         *
+         * (This will likely be moved in reorganization)
+         *
+         * @param Object - social commitment
+         * @param string - email of would-be sender
+         *
+         * @return string
+         */
+        function _getDirectiveName(sc, email) {
+
+            // Determine the agent's role
+            var role = 'server';
+            switch(sc.performative) {
+                case 'reply request':
+                    role = sc.debtor === email? 'server': 'client';
+                    break;
+                case 'propose discharge|perform':
+                    role = sc.debtor === email? 'server': 'client';
+                    break;
+                case 'reply propose|discharge|perform':
+                    role = sc.debtor === email? 'client': 'server';
+                    break;
+             }
+
+            // Remove spaces and pipes
+            return role + '-' + sc.performative.replace(' ', '-').replace(/\|/g, '-');
+          };
+
         return {
             agree: _agree,
             cancel: _cancel,
             failure: _failure,
+            getDirectiveName: _getDirectiveName,
             notUnderstood: _notUnderstood,
             proposeDischarge: _proposeDischarge,
             refuse: _refuse,

@@ -196,4 +196,47 @@ describe('Service: Request', function () {
         });
     });
 
+    /**
+     * This will likely fall victim to reorganization
+     */
+    describe('Utils', function() {
+
+        describe('getDirectiveName', function() {
+            it('should return client-reply-request', function() {
+                var name = request.getDirectiveName(REPLY_REQUEST_ACTION, CLIENT);
+                expect(name).toEqual('client-reply-request');
+            });
+
+            it('should return server-reply-request', function() {
+                var name = request.getDirectiveName(REPLY_REQUEST_ACTION, SERVER);
+                expect(name).toEqual('server-reply-request');
+            });
+
+            it('should return client-propose-discharge-perform', function() {
+                var name = request.getDirectiveName(PROPOSE_DISCHARGE_PERFORM_ACTION, CLIENT);
+                expect(name).toEqual('client-propose-discharge-perform');
+            });
+
+            it('should return server-propose-discharge-perform', function() {
+                var name = request.getDirectiveName(PROPOSE_DISCHARGE_PERFORM_ACTION, SERVER);
+                expect(name).toEqual('server-propose-discharge-perform');
+            });
+
+            it('should return server-perform', function() {
+                var name = request.getDirectiveName(PERFORM_ACTION, SERVER);
+                expect(name).toEqual('server-perform');
+            });
+
+            it('should return client-reply-propose-discharge-perform', function() {
+                var name = request.getDirectiveName(REPLY_PROPOSE_DISCHARGE_PERFORM_ACTION, CLIENT);
+                expect(name).toEqual('client-reply-propose-discharge-perform');
+            });
+
+            it('should return server-reply-propose-discharge-perform', function() {
+                var name = request.getDirectiveName(REPLY_PROPOSE_DISCHARGE_PERFORM_ACTION, SERVER);
+                expect(name).toEqual('server-reply-propose-discharge-perform');
+            });
+        });
+    });
 });
+

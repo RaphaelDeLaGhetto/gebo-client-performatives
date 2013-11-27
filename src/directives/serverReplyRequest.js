@@ -1,7 +1,7 @@
 ;(function() {
 'use strict';                  
 
-angular.module('gebo-client-performatives', []).
+angular.module('gebo-client-performatives').
     directive('serverReplyRequest', function () {
         return {
             restrict: 'A',

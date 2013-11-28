@@ -1,5 +1,5 @@
-angular.module("gebo-client-performatives", ["gebo-client-performatives.tpls", "gebo-client-performatives.directives","gebo-client-performatives.services"]);
-angular.module("gebo-client-performatives.tpls", []);
+angular.module("gebo-client-performatives", ["gebo-client-performatives.tpls", ]);
+angular.module("gebo-client-performatives.tpls", ["templates/client-reply-request.html","templates/server-reply-request.html"]);
 ;(function() {
 'use strict';                  
 
@@ -16,22 +16,21 @@ angular.module('gebo-client-performatives').
   }());
 
 
-;(function() {
-'use strict';                  
+angular.module("templates/client-reply-request.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("templates/client-reply-request.html",
+    "");
+}]);
 
-angular.module('gebo-client-performatives').
-    directive('serverReplyRequest', function () {
-        return {
-            template: '<button class="btn btn-small" ng-click="agree(sc._id, $event)">' +
-                      '    <span class="glyphicon glyphicon-question-sign"></span></button>' +
-                      '<button class="btn btn-small" ng-click="refuse(sc._id, $event)">' +
-                      '    <span class="glyphicon glyphicon-thumbs-down"></span></button>' +
-                      '<button class="btn btn-small" ng-click="agree(sc._id, $event)">' +
-                      '    <span class="glyphicon glyphicon-thumbs-up"></span></button>',
-         };
-      });
-  }());
-
+angular.module("templates/server-reply-request.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("templates/server-reply-request.html",
+    "<button class=\"btn btn-small\" ng-click=\"agree(sc._id, $event)\">\n" +
+    "    <span class=\"glyphicon glyphicon-question-sign\"></span></button>\n" +
+    "<button class=\"btn btn-small\" ng-click=\"refuse(sc._id, $event)\">\n" +
+    "    <span class=\"glyphicon glyphicon-thumbs-down\"></span></button>\n" +
+    "<button class=\"btn btn-small\" ng-click=\"agree(sc._id, $event)\">\n" +
+    "    <span class=\"glyphicon glyphicon-thumbs-up\"></span></button>'\n" +
+    "");
+}]);
 
 ;(function() {
 'use strict';                  

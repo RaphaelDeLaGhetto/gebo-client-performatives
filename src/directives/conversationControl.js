@@ -6,9 +6,9 @@ angular.module('gebo-client-performatives').
         return {
             restrict: 'E',
             scope: {
-                type: '=type',
+                type: '=',
             },
-            template: '<ng-include src="templates/' + type + '.html"></ng-include>',
+            template: '<ng-include src="\'templates/\' + type + \'.html\'"></ng-include>',
          };
       });
   }());

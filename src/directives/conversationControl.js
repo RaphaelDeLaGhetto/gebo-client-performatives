@@ -29,6 +29,7 @@ angular.module('gebo-client-performatives.conversationControl',
 
     return {
             restrict: 'E',
+            scope: true,
             link: _link,
          };
       });

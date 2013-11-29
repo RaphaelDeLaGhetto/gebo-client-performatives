@@ -2,20 +2,22 @@
 'use strict';                  
 
 angular.module('gebo-client-performatives.conversationControl',
-        ['templates/server-reply-request.html', 'templates/client-reply-request.html']).
-    directive('conversationControl', function ($templateCache) {
+        ['gebo-client-performatives.request', 'templates/server-reply-request.html', 'templates/client-reply-request.html']).
+    directive('conversationControl', function ($templateCache, Request) {
 
     function _link(scope, element, attributes) {
-        console.log('_link');        
-        console.log(attributes);        
-        console.log(element);
+        attributes.$observe('sc', function(newValue) {
+            scope.sc = newValue;
+          });
 
-        attributes.$observe('type', function(newValue) {
-            console.log('newValue');
-            console.log(newValue);
-//            scope.type = newValue;
-            element.html($templateCache.get('templates/' + attributes.type + '.html'));
-        });
+        attributes.$observe('email', function(newValue) {
+            scope.email = newValue;
+          });
+
+        if (scope.sc && scope.email) {
+            var directive = Request.getDirectiveName(scope.sc, scope.email);
+            element.html($templateCache.get('templates/' + directive + '.html'));
+        }
       };
 
     return {

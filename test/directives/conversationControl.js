@@ -9,50 +9,94 @@
 
 describe('Directive: conversationControl', function () {
 
+    var CLIENT = 'yanfen@example.com',
+        SERVER = 'dan@example.com';
 
-    var element, scope, compile, defaultType, templateCache,
-        validTemplate = '<conversation-control type="server-reply-request"></conversation-control>';
+    /**
+     * Social commitments
+     */
+    var REPLY_REQUEST_ACTION = {
+            performative: 'reply request',
+            action: 'friend',
+            message: { content: 'some data' },
+            creditor: CLIENT,
+            debtor: SERVER, 
+            created: Date.now(),
+            fulfilled: null,
+        },
+        PROPOSE_DISCHARGE_PERFORM_ACTION = {
+            performative: 'propose discharge|perform',
+            action: 'friend',
+            message: { content: 'some data' },
+            creditor: CLIENT,
+            debtor: SERVER, 
+            created: Date.now(),
+            fulfilled: null,
+        },
+        PERFORM_ACTION = {
+            performative: 'perform',
+            action: 'friend',
+            message: { content: 'some data' },
+            creditor: CLIENT,
+            debtor: SERVER, 
+            created: Date.now(),
+            fulfilled: null,
+        },
+        REPLY_PROPOSE_DISCHARGE_PERFORM_ACTION = {
+            performative: 'reply propose|discharge|perform',
+            action: 'friend',
+            message: { content: 'some data' },
+            creditor: SERVER,
+            debtor: CLIENT, 
+            created: Date.now(),
+            fulfilled: null,
+        };
 
-    function _createDirective(type, template) {
-        var element;
+    var element,
+        scope,
+        compile,
+        templateCache,
+        request;
+
+    function _createDirective(sc, email, template) {
+        var elm;
 
         // Setup scope state
-        scope.type = type || defaultType;
+        scope.sc = sc;
+        scope.email = email;
 
         // Create directive
-        element = compile(template || validTemplate)(scope);
+        elm = compile(template)(scope);
 
         // Trigger watchers
         scope.$apply();
 
         // Return
-        return element;
+        return elm;
     }
 
     beforeEach(module('gebo-client-performatives.conversationControl'));
 
     beforeEach(function() {
-        defaultType = 'server-reply-request';
 
-        inject(function($rootScope, $compile, $templateCache) {
+        inject(function($rootScope, $compile, $templateCache, Request) {
             scope = $rootScope.$new();
             compile = $compile;
             templateCache = $templateCache;
+            request = Request;
         });
     });
 
 
     it('should render the expected server-reply-request output', function() {
-        element = _createDirective('server-reply-request', '<conversation-control type="{{type}}"></conversation-control>');  
-        console.log('element');
-        console.log(element.html());
+        element = _createDirective(REPLY_REQUEST_ACTION, SERVER,
+                '<conversation-control sc="{{sc}}" email="{{email}}"></conversation-control>');  
         expect(element.html()).toEqual(templateCache.get('templates/server-reply-request.html'));
     });
 
     it('should render the expected client-reply-request output', function() {
-        element = _createDirective('client-reply-request', '<conversation-control type="{{type}}"></conversation-control>');  
-        console.log('element');
-        console.log(element.html());
+        element = _createDirective(REPLY_REQUEST_ACTION, CLIENT,
+                '<conversation-control sc="{{sc}}" email="{{email}}"></conversation-control>');  
         expect(element.html()).toEqual(templateCache.get('templates/client-reply-request.html'));
     });
 

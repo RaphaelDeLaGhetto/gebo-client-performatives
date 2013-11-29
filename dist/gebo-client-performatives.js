@@ -1,22 +1,68 @@
-angular.module("gebo-client-performatives", ["gebo-client-performatives.tpls"]);
+angular.module("gebo-client-performatives", ["gebo-client-performatives.conversationControl","gebo-client-performatives.request"]);
 ;(function() {
 'use strict';                  
 
-angular.module('gebo-client-performatives').
-    directive('conversationControl', function () {
-        return {
+angular.module('gebo-client-performatives.conversationControl',
+        ['gebo-client-performatives.request',
+         'templates/server-reply-request.html',
+         'templates/client-reply-request.html',
+         'templates/server-propose-discharge-perform.html',
+         'templates/client-propose-discharge-perform.html',
+         'templates/server-reply-propose-discharge-perform.html',
+         'templates/client-reply-propose-discharge-perform.html',
+         'templates/server-perform.html']).
+    directive('conversationControl', function ($templateCache, Request) {
+
+    function _link(scope, element, attributes) {
+        attributes.$observe('sc', function(newValue) {
+            scope.sc = newValue;
+          });
+
+        attributes.$observe('email', function(newValue) {
+            scope.email = newValue;
+          });
+
+        if (scope.sc && scope.email) {
+            var directive = Request.getDirectiveName(scope.sc, scope.email);
+            element.html($templateCache.get('templates/' + directive + '.html'));
+        }
+      };
+
+    return {
             restrict: 'E',
-            scope: {
-                type: '=',
-            },
-            template: '<ng-include src="\'templates/\' + type + \'.html\'"></ng-include>',
+            link: _link,
          };
       });
   }());
 
 
+angular.module("templates/client-propose-discharge-perform.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("templates/client-propose-discharge-perform.html",
+    "");
+}]);
+
+angular.module("templates/client-reply-propose-discharge-perform.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("templates/client-reply-propose-discharge-perform.html",
+    "");
+}]);
+
 angular.module("templates/client-reply-request.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("templates/client-reply-request.html",
+    "");
+}]);
+
+angular.module("templates/server-perform.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("templates/server-perform.html",
+    "");
+}]);
+
+angular.module("templates/server-propose-discharge-perform.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("templates/server-propose-discharge-perform.html",
+    "");
+}]);
+
+angular.module("templates/server-reply-propose-discharge-perform.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("templates/server-reply-propose-discharge-perform.html",
     "");
 }]);
 
@@ -34,7 +80,7 @@ angular.module("templates/server-reply-request.html", []).run(["$templateCache",
 ;(function() {
 'use strict';                  
 
-angular.module('gebo-client-performatives', ['ngRoute', 'ngResource']).
+angular.module('gebo-client-performatives.request', ['ngRoute', 'ngResource']).
     factory('Request', function () {
 
         /**

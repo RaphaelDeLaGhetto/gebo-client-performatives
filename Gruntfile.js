@@ -13,40 +13,18 @@ module.exports = function(grunt) {
     dist: 'dist',
     filename: 'gebo-client-performatives',
     meta: {
-        modules: 'angular.module("gebo-client-performatives", ["gebo-client-performatives.tpls"]);',
-        tplmodules: 'angular.module("gebo-client-performatives.tpls", [<%= tplModules %>]);',
-        all: 'angular.module("gebo-client-performatives", ["gebo-client-performatives.tpls", <%= srcModules %>]);'
+        all: 'angular.module("gebo-client-performatives", [<%= srcModules %>]);'
     },
-
-    // Task configuration.
-//    concat: {
-//      options: {
-//        banner: '<%= banner %>',
-//        stripBanners: true
-//      },
-//      dist: {
-//        src: ['src/services/request.js', 'src/directives/*.js'],
-//        dest: 'dist/<%= pkg.name %>.js'
-//      }
-//    },
-//
+    // Task configuration
     concat: {
         dist: {
             options: {
-                banner: '<%= meta.modules %>\n'
+                banner: '<%= meta.all %>\n'
             },
             src: [], //src filled in by build task
             dest: '<%= dist %>/<%= filename %>.js'
         },
-        dist_tpls: {
-            options: {
-                banner: '<%= meta.all %>\n<%= meta.tplmodules %>\n'
-            },
-            src: [], //src filled in by build task
-            dest: '<%= dist %>/<%= filename %>-tpls.js'
-        }
     },
-
     uglify: {
       options: {
         banner: '<%= banner %>'
@@ -54,10 +32,6 @@ module.exports = function(grunt) {
       dist: {
         src: '<%= concat.dist.dest %>',
         dest: 'dist/<%= pkg.name %>.min.js'
-      },
-      dist_tpls:{
-        src:['<%= dist %>/<%= filename %>-tpls.js'],
-        dest:'<%= dist %>/<%= filename %>-tpls.min.js'
       },
     },
     jshint: {
@@ -147,13 +121,8 @@ module.exports = function(grunt) {
   // Default task.
   grunt.registerTask('default', ['jshint', 'karma', 'build']);
 
-//  grunt.registerTask('build', [
-//    'clean',
-//    'copy',
-//    'concat',
-//    'ngmin',
-//    'uglify',
-//  ]);
+  // Test
+  grunt.registerTask('test', ['html2js', 'karma']);
 
   grunt.registerTask('build', 'Create bootstrap build files', function() {
     grunt.task.run(['clean']);
@@ -162,20 +131,17 @@ module.exports = function(grunt) {
         return '"' + str + '"';
     }
               
-    var tplModules = grunt.file.expand({ cwd: 'src/directives' }, "templates/*.html").
-            map(enquote).filter(function(tpls) { return tpls.length > 0;});
-    grunt.config('tplModules', tplModules);
+    var srcModules = grunt.file.expand({ cwd: 'src' }, '*/*.js').map(
+        function(file) {
+            return enquote(grunt.config('filename') + '.' + file.split('/')[1].split('.')[0]);
+          });
+    grunt.config('srcModules', srcModules);
 
     var srcFiles = grunt.file.expand("src/**/*.js");
-    var tpljsFiles = grunt.file.expand("src/directives/templates/**/*.html.js"); 
 
     //Set the concat task to concatenate the given src modules
     grunt.config('concat.dist.src', grunt.config('concat.dist.src')
         .concat(srcFiles));
-
-    //Set the concat-with-templates task to concat the given src & tpl modules
-    grunt.config('concat.dist_tpls.src', grunt.config('concat.dist_tpls.src')
-        .concat(srcFiles).concat(tpljsFiles));
 
     grunt.task.run(['concat', 'uglify']);
   });

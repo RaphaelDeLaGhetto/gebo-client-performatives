@@ -1,7 +1,7 @@
 ;(function() {
 'use strict';                  
 
-angular.module('gebo-client-performatives', ['ngRoute', 'ngResource']).
+angular.module('gebo-client-performatives.request', ['ngRoute', 'ngResource']).
     factory('Request', function () {
 
         /**

@@ -158,49 +158,21 @@ module.exports = function(grunt) {
   grunt.registerTask('build', 'Create bootstrap build files', function() {
     grunt.task.run(['clean']);
 
-//    var _ = grunt.util._;
-
-    //If arguments define what modules to build, build those. Else, everything
-//    if (this.args.length) {
-//      this.args.forEach(findModule);
-//      grunt.config('filename', grunt.config('filenamecustom'));
-//    } else {
-//      grunt.file.expand({
-//        filter: 'isDirectory', cwd: '.'
-//      }, 'src/*').forEach(function(dir) {
-//        findModule(dir.split('/')[1]);
-//      });
-//    }
-
-//    var modules = grunt.config('modules');
-//    grunt.config('srcModules', _.pluck(modules, 'moduleName'));
-//    grunt.config('tplModules', _.pluck(modules, 'tplModules').filter(function(tpls) { return tpls.length > 0;} ));
     function enquote(str) {
         return '"' + str + '"';
     }
               
-//    grunt.config('srcModules', enquote('gebo-client-performatives')); 
-
     var tplModules = grunt.file.expand({ cwd: 'src/directives' }, "templates/*.html").
             map(enquote).filter(function(tpls) { return tpls.length > 0;});
     grunt.config('tplModules', tplModules);
 
-//        .filter(function(module) {
-//            return module.docs.md && module.docs.js && module.docs.html;
-//        })
-//        .sort(function(a, b) {
-//            if (a.name < b.name) { return -1; }
-//            if (a.name > b.name) { return 1; }
-//            return 0;
-//        })
-//    );
-//    var srcFiles = _.pluck(modules, 'srcFiles');
     var srcFiles = grunt.file.expand("src/**/*.js");
-//    var tpljsFiles = _.pluck(modules, 'tpljsFiles');
     var tpljsFiles = grunt.file.expand("src/directives/templates/**/*.html.js"); 
+
     //Set the concat task to concatenate the given src modules
     grunt.config('concat.dist.src', grunt.config('concat.dist.src')
         .concat(srcFiles));
+
     //Set the concat-with-templates task to concat the given src & tpl modules
     grunt.config('concat.dist_tpls.src', grunt.config('concat.dist_tpls.src')
         .concat(srcFiles).concat(tpljsFiles));

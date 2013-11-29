@@ -100,6 +100,35 @@ describe('Directive: conversationControl', function () {
         expect(element.html()).toEqual(templateCache.get('templates/client-reply-request.html'));
     });
 
+    it('should render the expected server-propose-discharge-perform output', function() {
+        element = _createDirective(PROPOSE_DISCHARGE_PERFORM_ACTION, SERVER,
+                '<conversation-control sc="{{sc}}" email="{{email}}"></conversation-control>');  
+        expect(element.html()).toEqual(templateCache.get('templates/server-propose-discharge-perform.html'));
+    });
+
+    it('should render the expected client-propose-discharge-perform output', function() {
+        element = _createDirective(PROPOSE_DISCHARGE_PERFORM_ACTION, CLIENT,
+                '<conversation-control sc="{{sc}}" email="{{email}}"></conversation-control>');  
+        expect(element.html()).toEqual(templateCache.get('templates/client-propose-discharge-perform.html'));
+    });
+
+    it('should render the expected server-perform output', function() {
+        element = _createDirective(PERFORM_ACTION, SERVER,
+                '<conversation-control sc="{{sc}}" email="{{email}}"></conversation-control>');  
+        expect(element.html()).toEqual(templateCache.get('templates/server-perform.html'));
+    });
+
+    it('should render the expected server-reply-propose-discharge-perform output', function() {
+        element = _createDirective(REPLY_PROPOSE_DISCHARGE_PERFORM_ACTION, SERVER,
+                '<conversation-control sc="{{sc}}" email="{{email}}"></conversation-control>');  
+        expect(element.html()).toEqual(templateCache.get('templates/server-reply-propose-discharge-perform.html'));
+    });
+
+    it('should render the expected client-reply-propose-discharge-perform output', function() {
+        element = _createDirective(REPLY_PROPOSE_DISCHARGE_PERFORM_ACTION, CLIENT,
+                '<conversation-control sc="{{sc}}" email="{{email}}"></conversation-control>');  
+        expect(element.html()).toEqual(templateCache.get('templates/client-reply-propose-discharge-perform.html'));
+    });
 
 });
 

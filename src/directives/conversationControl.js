@@ -2,7 +2,14 @@
 'use strict';                  
 
 angular.module('gebo-client-performatives.conversationControl',
-        ['gebo-client-performatives.request', 'templates/server-reply-request.html', 'templates/client-reply-request.html']).
+        ['gebo-client-performatives.request',
+         'templates/server-reply-request.html',
+         'templates/client-reply-request.html',
+         'templates/server-propose-discharge-perform.html',
+         'templates/client-propose-discharge-perform.html',
+         'templates/server-reply-propose-discharge-perform.html',
+         'templates/client-reply-propose-discharge-perform.html',
+         'templates/server-perform.html']).
     directive('conversationControl', function ($templateCache, Request) {
 
     function _link(scope, element, attributes) {

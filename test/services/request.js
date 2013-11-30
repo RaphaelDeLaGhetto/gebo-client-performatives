@@ -48,10 +48,22 @@ describe('Service: Request', function () {
             fulfilled: null,
         };
 
+    /**
+     * The Request callback that delivers
+     * the new message to the sender
+     */
+    var _message;
+    var _callback = function(message) {
+        _message = message;
+      }
+
     beforeEach(module('gebo-client-performatives.request'));
 
     beforeEach(inject(function(Request, $injector) {
         request = Request;
+
+        // Set callback
+        request.callback = _callback;
     }));
 
     it('should do something', function() {

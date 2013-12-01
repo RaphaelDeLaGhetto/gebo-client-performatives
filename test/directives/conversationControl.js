@@ -151,9 +151,10 @@ describe('Directive: conversationControl', function () {
      */
     describe('agree', function() {
         it('should execute callback with \'agree perform|request\' message parameter', function() {
-            _createDirective(REPLY_REQUEST_ACTION, SERVER,
+            element = _createDirective(REPLY_REQUEST_ACTION, SERVER,
                 '<conversation-control sc="{{sc}}" email="{{email}}"></conversation-control>');  
-            scope.agree();
+            var isolateScope = element.scope();
+            isolateScope.agree();
         });        
     });
 });

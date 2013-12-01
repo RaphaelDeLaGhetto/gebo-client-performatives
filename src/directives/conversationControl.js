@@ -13,6 +13,7 @@ angular.module('gebo-client-performatives.conversationControl',
     directive('conversationControl', function ($templateCache, Request, $compile) {
 
     var _link = function(scope, element, attributes) {
+
         attributes.$observe('sc', function(newValue) {
             scope.sc = newValue;
           });

@@ -10,9 +10,9 @@ angular.module('gebo-client-performatives.conversationControl',
          'templates/server-reply-propose-discharge-perform.html',
          'templates/client-reply-propose-discharge-perform.html',
          'templates/server-perform.html']).
-    directive('conversationControl', function ($templateCache, Request) {
+    directive('conversationControl', function ($templateCache, Request, $compile) {
 
-    function _link(scope, element, attributes) {
+    var _link = function(scope, element, attributes) {
         attributes.$observe('sc', function(newValue) {
             scope.sc = newValue;
           });
@@ -24,13 +24,30 @@ angular.module('gebo-client-performatives.conversationControl',
         if (scope.sc && scope.email) {
             var directive = Request.getDirectiveName(scope.sc, scope.email);
             element.html($templateCache.get('templates/' + directive + '.html'));
+            $compile(element.contents())(scope);
         }
+      };
+
+    /**
+     * Get an agree message
+     */
+    var _agree = function() {
+
+      };
+
+
+    /**
+     * Controller
+     */
+    var _controller = function($scope, $element, $attrs, $transclude) {
+        $scope.agree = _agree;
       };
 
     return {
             restrict: 'E',
             scope: true,
             link: _link,
+            controller: _controller,
          };
       });
   }());

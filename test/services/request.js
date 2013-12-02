@@ -108,7 +108,7 @@ describe('Service: Request', function () {
         });
 
         describe('notUnderstood', function() {
-            it('should return a \'not-understood propose discharge|perform|action\' message', function() {
+            it('should return a \'not-understood propose|discharge|perform|action\' message', function() {
                 request.notUnderstood(REPLY_PROPOSE_DISCHARGE_PERFORM_ACTION, CLIENT, REQUEST_CONVERSATION.conversationId);
                 expect(_message.sender).toEqual(CLIENT);
                 expect(_message.receiver).toEqual(SERVER);

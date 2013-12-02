@@ -14,8 +14,25 @@ angular.module('gebo-client-performatives.conversationControl',
     directive('conversationControl', function ($templateCache, Request, $compile) {
 
     var _link = function(scope, element, attributes) {
+        attributes.$observe('sc', function(newValue) {
+            scope.sc = newValue;
+            _compileWhenReady(scope, element);
+          });
+    
+        attributes.$observe('email', function(newValue) {
+            scope.email = newValue;
+            _compileWhenReady(scope, element);
+          });
+    
+        attributes.$observe('conversationId', function(newValue) {
+            scope.conversationId = newValue;
+            _compileWhenReady(scope, element);
+          });
+      };
+
+    var _compileWhenReady = function(scope, element) {
         if (scope.sc && scope.email && scope.conversationId) {
-            var directive = Request.getDirectiveName(scope.sc, scope.email);
+            var directive = Request.getDirectiveName(JSON.parse(scope.sc), scope.email);
             element.html($templateCache.get('templates/' + directive + '.html'));
             $compile(element.contents())(scope);
         }
@@ -25,18 +42,6 @@ angular.module('gebo-client-performatives.conversationControl',
      * Controller
      */
     var _controller = function($scope, $element, $attrs, $transclude) {
-
-            $attrs.$observe('sc', function(newValue) {
-                $scope.sc = newValue;
-              });
-    
-            $attrs.$observe('email', function(newValue) {
-                $scope.email = newValue;
-              });
-    
-            $attrs.$observe('conversationId', function(newValue) {
-                $scope.conversationId = newValue;
-              });
 
             /**
              * agree

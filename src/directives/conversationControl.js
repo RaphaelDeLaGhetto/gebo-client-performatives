@@ -27,12 +27,6 @@ angular.module('gebo-client-performatives.conversationControl',
             scope.conversationId = newValue;
             _compileWhenReady(scope, element);
           });
-
-//        if (scope.sc && scope.email && scope.conversationId) {
-//            var directive = Request.getDirectiveName(JSON.parse(scope.sc), scope.email);
-//            element.html($templateCache.get('templates/' + directive + '.html'));
-//            $compile(element.contents())(scope);
-//        }
       };
 
     var _compileWhenReady = function(scope, element) {

@@ -145,49 +145,49 @@ describe('Directive: conversationControl', function () {
 
     it('should render the expected server-reply-request output', function() {
         element = _createDirective(REPLY_REQUEST_ACTION, SERVER,
-                '<conversation-control sc="{{sc}}" email="{{email}}" conversationId="{{conversationId}}">' + 
+                '<conversation-control sc="{{sc}}" email="{{email}}" conversation-id="{{conversationId}}">' + 
                 '</conversation-control>');  
         expect(element.html()).toEqual(_compileTemplate('templates/server-reply-request.html'));
     });
 
     it('should render the expected client-reply-request output', function() {
         element = _createDirective(REPLY_REQUEST_ACTION, CLIENT,
-                '<conversation-control sc="{{sc}}" email="{{email}}" conversationId="{{conversationId}}">' +  
+                '<conversation-control sc="{{sc}}" email="{{email}}" conversation-id="{{conversationId}}">' +  
                 '</conversation-control>');  
         expect(element.html()).toEqual(_compileTemplate('templates/client-reply-request.html'));
     });
 
     it('should render the expected server-propose-discharge-perform output', function() {
         element = _createDirective(PROPOSE_DISCHARGE_PERFORM_ACTION, SERVER,
-                '<conversation-control sc="{{sc}}" email="{{email}}" conversationId="{{conversationId}}">' +  
+                '<conversation-control sc="{{sc}}" email="{{email}}" conversation-id="{{conversationId}}">' +  
                 '</conversation-control>');  
         expect(element.html()).toEqual(_compileTemplate('templates/server-propose-discharge-perform.html'));
     });
 
     it('should render the expected client-propose-discharge-perform output', function() {
         element = _createDirective(PROPOSE_DISCHARGE_PERFORM_ACTION, CLIENT,
-                '<conversation-control sc="{{sc}}" email="{{email}}" conversationId="{{conversationId}}">' +
+                '<conversation-control sc="{{sc}}" email="{{email}}" conversation-id="{{conversationId}}">' +
                 '</conversation-control>');  
         expect(element.html()).toEqual(_compileTemplate('templates/client-propose-discharge-perform.html'));
     });
 
     it('should render the expected server-perform output', function() {
         element = _createDirective(PERFORM_ACTION, SERVER,
-                '<conversation-control sc="{{sc}}" email="{{email}}" conversationId="{{conversationId}}">' +
+                '<conversation-control sc="{{sc}}" email="{{email}}" conversation-id="{{conversationId}}">' +
                 '</conversation-control>');  
         expect(element.html()).toEqual(_compileTemplate('templates/server-perform.html'));
     });
 
     it('should render the expected server-reply-propose-discharge-perform output', function() {
         element = _createDirective(REPLY_PROPOSE_DISCHARGE_PERFORM_ACTION, SERVER,
-                '<conversation-control sc="{{sc}}" email="{{email}}" conversationId="{{conversationId}}">' +  
+                '<conversation-control sc="{{sc}}" email="{{email}}" conversation-id="{{conversationId}}">' +  
                 '</conversation-control>');  
         expect(element.html()).toEqual(_compileTemplate('templates/server-reply-propose-discharge-perform.html'));
     });
 
     it('should render the expected client-reply-propose-discharge-perform output', function() {
         element = _createDirective(REPLY_PROPOSE_DISCHARGE_PERFORM_ACTION, CLIENT,
-                '<conversation-control sc="{{sc}}" email="{{email}}" conversationId="{{conversationId}}">' +  
+                '<conversation-control sc="{{sc}}" email="{{email}}" conversation-id="{{conversationId}}">' +  
                 '</conversation-control>');  
         expect(element.html()).toEqual(_compileTemplate('templates/client-reply-propose-discharge-perform.html'));
     });
@@ -222,7 +222,7 @@ describe('Directive: conversationControl', function () {
 //        describe('request', function() {
 //            it('should execute callback with \'agree request|action\' message parameter', function() {
 //                element = _createDirective(REPLY_REQUEST_ACTION, SERVER,
-//                    '<conversation-control sc="{{sc}}" email="{{email}}"> conversationId="{{conversationId}}">' +  
+//                    '<conversation-control sc="{{sc}}" email="{{email}}"> conversation-id="{{conversationId}}">' +  
 //                    '</conversation-control>');  
 //                var isolateScope = element.scope();
 //                isolateScope.agree();

@@ -270,6 +270,26 @@ describe('Directive: conversationControl', function () {
             });
         });
 
+        /**
+         * failure
+         */
+        describe('failure', function() {
+            it('should execute callback with \'failure perform\' message parameter', function() {
+                element = _createDirective(PERFORM_ACTION, SERVER,
+                    '<conversation-control sc="{{sc}}" email="{{email}}" conversation-id="{{conversationId}}">' +  
+                    '</conversation-control>');  
+                var isolateScope = element.scope();
+                isolateScope.failure();
+
+                expect(_message.sender).toEqual(SERVER);
+                expect(_message.receiver).toEqual(CLIENT);
+                expect(_message.performative).toEqual('failure perform');
+                expect(_message.action).toEqual('friend');
+                expect(_message.conversationId).toEqual(CONVERSATION_ID);
+            });
+        });
+
+
     });
 
     describe('Client', function() {

@@ -64,6 +64,13 @@ angular.module('gebo-client-performatives.conversationControl',
             $scope.timeout = function() {
                     Request.timeout(JSON.parse($scope.sc), $scope.email, $scope.conversationId);
                 };
+
+            /**
+             * failure
+             */
+            $scope.failure = function() {
+                    Request.failure(JSON.parse($scope.sc), $scope.email, $scope.conversationId);
+                };
       };
 
     return {

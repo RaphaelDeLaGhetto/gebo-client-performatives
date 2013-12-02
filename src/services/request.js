@@ -5,6 +5,16 @@ angular.module('gebo-client-performatives.request', ['ngRoute', 'ngResource']).
     factory('Request', function () {
 
         /**
+         * The method called when a new message
+         * is created
+         */
+        var _callback;
+
+        function _setCallback(fn) {
+            _callback = fn;
+          };
+
+        /**
          * Initiate a request
          *
          * @param string
@@ -15,13 +25,13 @@ angular.module('gebo-client-performatives.request', ['ngRoute', 'ngResource']).
          * @return Object
          */
         function _request(sender, receiver, action, gebo) {
-            return {
+            _callback({
                     sender: sender,
                     receiver: receiver,
                     performative: 'request',
                     action: action,
                     gebo: gebo,
-                };
+                });
           };
 
         /**
@@ -29,16 +39,18 @@ angular.module('gebo-client-performatives.request', ['ngRoute', 'ngResource']).
          *
          * @param Object - social commitment
          * @param string - email of sender
+         * @param string - conversation ID
          *
          * @return Object
          */
-        function _cancel(sc, email) {
-            return {
+        function _cancel(sc, email, id) {
+            _callback({
                     sender: email,
                     receiver: sc.debtor === email? sc.creditor: sc.debtor,
                     performative: 'cancel request',
                     action: sc.action,
-                };
+                    conversationId: id,
+                });
           };
 
         /**
@@ -46,16 +58,18 @@ angular.module('gebo-client-performatives.request', ['ngRoute', 'ngResource']).
          *
          * @param Object - social commitment
          * @param string - email of sender
+         * @param string - conversation ID
          *
          * @return Object
          */
-        function _notUnderstood(sc, email) {
-            return {
+        function _notUnderstood(sc, email, id) {
+            _callback({
                     sender: email,
                     receiver: sc.debtor === email? sc.creditor: sc.debtor,
                     performative: 'not-understood ' + sc.performative.split(' ').pop(),
                     action: sc.action,
-                };
+                    conversationId: id,
+                });
           };
 
         /**
@@ -63,16 +77,18 @@ angular.module('gebo-client-performatives.request', ['ngRoute', 'ngResource']).
          *
          * @param Object - social commitment
          * @param string - email of sender
+         * @param string - conversation ID
          *
          * @return Object
          */
-        function _refuse(sc, email) {
-            return {
+        function _refuse(sc, email, id) {
+            _callback({
                     sender: email,
                     receiver: sc.debtor === email? sc.creditor: sc.debtor,
                     performative: 'refuse ' + sc.performative.split(' ').pop(),
                     action: sc.action,
-                };
+                    conversationId: id,
+                });
           };
 
         /**
@@ -80,16 +96,18 @@ angular.module('gebo-client-performatives.request', ['ngRoute', 'ngResource']).
          *
          * @param Object - social commitment
          * @param string - email of sender
+         * @param string - conversation ID
          *
          * @return Object
          */
-        function _timeout(sc, email) {
-            return {
+        function _timeout(sc, email, id) {
+            _callback({
                     sender: email,
                     receiver: sc.debtor === email? sc.creditor: sc.debtor,
                     performative: 'timeout ' + sc.performative.split(' ').pop(),
                     action: sc.action,
-                };
+                    conversationId: id,
+                });
           };
 
         /**
@@ -97,16 +115,18 @@ angular.module('gebo-client-performatives.request', ['ngRoute', 'ngResource']).
          *
          * @param Object - social commitment
          * @param string - email of sender
+         * @param string - conversation ID
          *
          * @return Object
          */
-        function _agree(sc, email) {
-            return {
+        function _agree(sc, email, id) {
+            _callback({
                     sender: email,
                     receiver: sc.debtor === email? sc.creditor: sc.debtor,
                     performative: 'agree ' + sc.performative.split(' ').pop(),
                     action: sc.action,
-                };
+                    conversationId: id,
+                });
           };
 
         /**
@@ -114,16 +134,18 @@ angular.module('gebo-client-performatives.request', ['ngRoute', 'ngResource']).
          *
          * @param Object - social commitment
          * @param string - email of sender
+         * @param string - conversation ID
          *
          * @return Object
          */
-        function _failure(sc, email) {
-            return {
+        function _failure(sc, email, id) {
+            _callback({
                     sender: email,
                     receiver: sc.debtor === email? sc.creditor: sc.debtor,
                     performative: 'failure ' + sc.performative.split(' ').pop(),
                     action: sc.action,
-                };
+                    conversationId: id,
+                });
           };
 
         /**
@@ -131,16 +153,18 @@ angular.module('gebo-client-performatives.request', ['ngRoute', 'ngResource']).
          *
          * @param Object - social commitment
          * @param string - email of sender
+         * @param string - conversation ID
          *
          * @return Object
          */
-        function _proposeDischarge(sc, email) {
-            return {
+        function _proposeDischarge(sc, email, id) {
+            _callback({
                     sender: email,
                     receiver: sc.debtor === email? sc.creditor: sc.debtor,
                     performative: 'propose ' + sc.performative.split(' ').pop(),
                     action: sc.action,
-                };
+                    conversationId: id,
+                });
           };
 
         /**
@@ -175,11 +199,13 @@ angular.module('gebo-client-performatives.request', ['ngRoute', 'ngResource']).
 
         return {
             agree: _agree,
+            callback: function(msg){ _callback(msg); },
             cancel: _cancel,
             failure: _failure,
             getDirectiveName: _getDirectiveName,
             notUnderstood: _notUnderstood,
             proposeDischarge: _proposeDischarge,
+            setCallback: _setCallback,
             refuse: _refuse,
             request: _request,
             timeout: _timeout,

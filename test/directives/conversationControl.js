@@ -406,19 +406,6 @@ describe('Directive: conversation-control', function () {
             });
         });
 
-
-        /**
-         * request
-         */
-//        describe('request', function() {
-//            it('should execute callback with \'agree request|action\' message parameter', function() {
-//                element = _createDirective(REPLY_REQUEST_ACTION, SERVER,
-//                    '<conversation-control sc="{{sc}}" email="{{email}}"> conversation-id="{{conversationId}}">' +  
-//                    '</conversation-control>');  
-//                var isolateScope = element.scope();
-//                isolateScope.agree();
-//            });
-//        });
     });
 });
 

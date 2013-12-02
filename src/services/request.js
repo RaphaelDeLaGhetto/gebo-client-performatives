@@ -6,9 +6,14 @@ angular.module('gebo-client-performatives.request', ['ngRoute', 'ngResource']).
 
         /**
          * The method called when a new message
-         * is created
+         * is created. It is meant to be overwritten.
+         * This function is simply defined to give 
+         * feedback while the system is being 
+         * configured
          */
-        var _callback;
+        var _callback = function(msg) {
+            console.log(msg);
+          };
 
         function _setCallback(fn) {
             _callback = fn;

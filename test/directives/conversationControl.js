@@ -312,6 +312,24 @@ describe('Directive: conversationControl', function () {
     describe('Client', function() {
 
         /**
+         * cancel
+         */
+        describe('cancel', function() {
+            it('should execute callback with \'cancel perform|action\' message parameter', function() {
+                element = _createDirective(PROPOSE_DISCHARGE_PERFORM_ACTION, CLIENT,
+                    '<conversation-control sc="{{sc}}" email="{{email}}" conversation-id="{{conversationId}}">' +  
+                    '</conversation-control>');  
+                var isolateScope = element.scope();
+                isolateScope.proposeDischarge();
+
+                expect(_message.sender).toEqual(CLIENT);
+                expect(_message.receiver).toEqual(SERVER);
+                expect(_message.performative).toEqual('cancel perform');
+                expect(_message.action).toEqual('friend');
+                expect(_message.conversationId).toEqual(CONVERSATION_ID);
+            });
+        });
+        /**
          * request
          */
 //        describe('request', function() {

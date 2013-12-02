@@ -119,7 +119,7 @@ describe('Service: Request', function () {
         });
 
         describe('refuse', function() {
-            it('should return a \'refuse propose discharge|perform|action\' message', function() {
+            it('should return a \'refuse propose|discharge|perform|action\' message', function() {
                 request.refuse(REPLY_PROPOSE_DISCHARGE_PERFORM_ACTION, CLIENT, REQUEST_CONVERSATION.conversationId);
                 expect(_message.sender).toEqual(CLIENT);
                 expect(_message.receiver).toEqual(SERVER);
@@ -130,7 +130,7 @@ describe('Service: Request', function () {
         });
 
         describe('timeout', function() {
-            it('should return a \'timeout propose discharge|perform|action\' message', function() {
+            it('should return a \'timeout propose|discharge|perform|action\' message', function() {
                 request.timeout(REPLY_PROPOSE_DISCHARGE_PERFORM_ACTION, CLIENT, REQUEST_CONVERSATION.conversationId);
                 expect(_message.sender).toEqual(CLIENT);
                 expect(_message.receiver).toEqual(SERVER);

@@ -57,6 +57,13 @@ angular.module('gebo-client-performatives.conversationControl',
             $scope.refuse = function() {
                     Request.refuse(JSON.parse($scope.sc), $scope.email, $scope.conversationId);
                 };
+
+            /**
+             * timeout
+             */
+            $scope.timeout = function() {
+                    Request.timeout(JSON.parse($scope.sc), $scope.email, $scope.conversationId);
+                };
       };
 
     return {

@@ -14,7 +14,7 @@ angular.module('gebo-client-performatives.conversationControl',
 
     var _link = function(scope, element, attributes) {
         if (scope.sc && scope.email && scope.conversationId) {
-            var directive = Request.getDirectiveName(scope.sc, scope.email);
+            var directive = Request.getDirectiveName(JSON.parse(scope.sc), scope.email);
             element.html($templateCache.get('templates/' + directive + '.html'));
             $compile(element.contents())(scope);
         }

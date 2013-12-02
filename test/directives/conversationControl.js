@@ -195,6 +195,26 @@ describe('Directive: conversationControl', function () {
     describe('Server', function() {
 
         /**
+         * not-understood
+         */
+        describe('not-understood', function() {
+            it('should execute callback with \'not-understood request|action\' message parameter', function() {
+                element = _createDirective(REPLY_REQUEST_ACTION, SERVER,
+                    '<conversation-control sc="{{sc}}" email="{{email}}" conversation-id="{{conversationId}}">' +  
+                    '</conversation-control>');  
+                var isolateScope = element.scope();
+                isolateScope.notUnderstood();
+
+                expect(_message.sender).toEqual(SERVER);
+                expect(_message.receiver).toEqual(CLIENT);
+                expect(_message.performative).toEqual('not-understood request');
+                expect(_message.action).toEqual('friend');
+                expect(_message.conversationId).toEqual(CONVERSATION_ID);
+            });
+        });
+
+
+        /**
          * agree
          */
         describe('agree', function() {
@@ -212,6 +232,7 @@ describe('Directive: conversationControl', function () {
                 expect(_message.conversationId).toEqual(CONVERSATION_ID);
             });
         });
+
     });
 
     describe('Client', function() {

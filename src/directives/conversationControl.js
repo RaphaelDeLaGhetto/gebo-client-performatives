@@ -43,6 +43,13 @@ angular.module('gebo-client-performatives.conversationControl',
             $scope.agree = function() {
                     Request.agree(JSON.parse($scope.sc), $scope.email, $scope.conversationId);
                 };
+
+            /**
+             * Get an agree message from the Request server
+             */
+            $scope.notUnderstood = function() {
+                    Request.notUnderstood(JSON.parse($scope.sc), $scope.email, $scope.conversationId);
+                };
       };
 
     return {

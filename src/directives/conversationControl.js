@@ -78,6 +78,13 @@ angular.module('gebo-client-performatives.conversationControl',
             $scope.proposeDischarge = function() {
                     Request.proposeDischarge(JSON.parse($scope.sc), $scope.email, $scope.conversationId);
                 };
+
+            /**
+             * cancel
+             */
+            $scope.cancel = function() {
+                    Request.cancel(JSON.parse($scope.sc), $scope.email, $scope.conversationId);
+                };
       };
 
     return {

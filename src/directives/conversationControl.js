@@ -1,7 +1,7 @@
 ;(function() {
 'use strict';                  
 
-angular.module('gebo-client-performatives.conversation-control',
+angular.module('gebo-client-performatives.conversationControl',
         ['gebo-client-performatives.request',
          'templates/server-reply-request.html',
          'templates/client-reply-request.html',

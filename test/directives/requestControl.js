@@ -7,7 +7,7 @@
  * https://github.com/daniellmb/angular-test-patterns/blob/master/patterns/directive.md#render-the-expected-output-
  */
 
-describe('Directive: request-control', function () {
+describe('Directive: requestControl', function () {
 
     var CLIENT = 'yanfen@example.com',
         SERVER = 'dan@example.com',
@@ -85,7 +85,7 @@ describe('Directive: request-control', function () {
         _message = message;
       }
 
-    beforeEach(module('gebo-client-performatives.request-control'));
+    beforeEach(module('gebo-client-performatives.requestControl'));
 
     beforeEach(function() {
 

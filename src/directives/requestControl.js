@@ -1,7 +1,7 @@
 ;(function() {
 'use strict';                  
 
-angular.module('gebo-client-performatives.request-control',
+angular.module('gebo-client-performatives.requestControl',
         ['gebo-client-performatives.request',
          'templates/request-control.html']).
     directive('requestControl', function ($templateCache, Request, $compile) {

@@ -7,7 +7,7 @@
  * https://github.com/daniellmb/angular-test-patterns/blob/master/patterns/directive.md#render-the-expected-output-
  */
 
-describe('Directive: conversation-control', function () {
+describe('Directive: conversationControl', function () {
 
     var CLIENT = 'yanfen@example.com',
         SERVER = 'dan@example.com';
@@ -123,7 +123,7 @@ describe('Directive: conversation-control', function () {
         _message = message;
       }
 
-    beforeEach(module('gebo-client-performatives.conversation-control'));
+    beforeEach(module('gebo-client-performatives.conversationControl'));
 
     beforeEach(function() {
 

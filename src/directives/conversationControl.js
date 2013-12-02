@@ -22,7 +22,11 @@ angular.module('gebo-client-performatives.conversationControl',
             scope.email = newValue;
           });
 
-        if (scope.sc && scope.email) {
+        attributes.$observe('conversationId', function(newValue) {
+            scope.conversationId = newValue;
+          });
+
+        if (scope.sc && scope.email && scope.conversationId) {
             var directive = Request.getDirectiveName(scope.sc, scope.email);
             element.html($templateCache.get('templates/' + directive + '.html'));
             $compile(element.contents())(scope);

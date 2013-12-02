@@ -289,7 +289,24 @@ describe('Directive: conversationControl', function () {
             });
         });
 
+        /**
+         * proposeDischarge
+         */
+        describe('proposeDischarge', function() {
+            it('should execute callback with \'propose discharge|perform\' message parameter', function() {
+                element = _createDirective(PROPOSE_DISCHARGE_PERFORM_ACTION, SERVER,
+                    '<conversation-control sc="{{sc}}" email="{{email}}" conversation-id="{{conversationId}}">' +  
+                    '</conversation-control>');  
+                var isolateScope = element.scope();
+                isolateScope.proposeDischarge();
 
+                expect(_message.sender).toEqual(SERVER);
+                expect(_message.receiver).toEqual(CLIENT);
+                expect(_message.performative).toEqual('propose discharge|perform');
+                expect(_message.action).toEqual('friend');
+                expect(_message.conversationId).toEqual(CONVERSATION_ID);
+            });
+        });
     });
 
     describe('Client', function() {

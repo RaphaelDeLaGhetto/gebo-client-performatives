@@ -390,17 +390,17 @@ describe('Directive: conversationControl', function () {
         /**
          * agree
          */
-        describe('timeout', function() {
+        describe('agree', function() {
             it('should execute callback with \'timeout propose|discharge|perform\' message parameter', function() {
                 element = _createDirective(REPLY_PROPOSE_DISCHARGE_PERFORM_ACTION, CLIENT,
                     '<conversation-control sc="{{sc}}" email="{{email}}" conversation-id="{{conversationId}}">' +  
                     '</conversation-control>');  
                 var isolateScope = element.scope();
-                isolateScope.timeout();
+                isolateScope.agree();
 
                 expect(_message.sender).toEqual(CLIENT);
                 expect(_message.receiver).toEqual(SERVER);
-                expect(_message.performative).toEqual('timeout propose|discharge|perform');
+                expect(_message.performative).toEqual('agree propose|discharge|perform');
                 expect(_message.action).toEqual('friend');
                 expect(_message.conversationId).toEqual(CONVERSATION_ID);
             });

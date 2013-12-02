@@ -38,17 +38,24 @@ angular.module('gebo-client-performatives.conversationControl',
               });
 
             /**
-             * Get an agree message from the Request server
+             * agree
              */
             $scope.agree = function() {
                     Request.agree(JSON.parse($scope.sc), $scope.email, $scope.conversationId);
                 };
 
             /**
-             * Get an agree message from the Request server
+             * notUnderstood
              */
             $scope.notUnderstood = function() {
                     Request.notUnderstood(JSON.parse($scope.sc), $scope.email, $scope.conversationId);
+                };
+
+            /**
+             * refuse
+             */
+            $scope.refuse = function() {
+                    Request.refuse(JSON.parse($scope.sc), $scope.email, $scope.conversationId);
                 };
       };
 

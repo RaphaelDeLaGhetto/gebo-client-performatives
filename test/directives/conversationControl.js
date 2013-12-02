@@ -213,6 +213,43 @@ describe('Directive: conversationControl', function () {
             });
         });
 
+        /**
+         * refuse 
+         */
+        describe('refuse', function() {
+            it('should execute callback with \'refuse request|action\' message parameter', function() {
+                element = _createDirective(REPLY_REQUEST_ACTION, SERVER,
+                    '<conversation-control sc="{{sc}}" email="{{email}}" conversation-id="{{conversationId}}">' +  
+                    '</conversation-control>');  
+                var isolateScope = element.scope();
+                isolateScope.refuse();
+
+                expect(_message.sender).toEqual(SERVER);
+                expect(_message.receiver).toEqual(CLIENT);
+                expect(_message.performative).toEqual('refuse request');
+                expect(_message.action).toEqual('friend');
+                expect(_message.conversationId).toEqual(CONVERSATION_ID);
+            });
+        });
+
+        /**
+         * timeout 
+         */
+        describe('timeout', function() {
+            it('should execute callback with \'timeout request|action\' message parameter', function() {
+                element = _createDirective(REPLY_REQUEST_ACTION, SERVER,
+                    '<conversation-control sc="{{sc}}" email="{{email}}" conversation-id="{{conversationId}}">' +  
+                    '</conversation-control>');  
+                var isolateScope = element.scope();
+                isolateScope.timeout();
+
+                expect(_message.sender).toEqual(SERVER);
+                expect(_message.receiver).toEqual(CLIENT);
+                expect(_message.performative).toEqual('timeout request');
+                expect(_message.action).toEqual('friend');
+                expect(_message.conversationId).toEqual(CONVERSATION_ID);
+            });
+        });
 
         /**
          * agree

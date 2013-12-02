@@ -329,6 +329,28 @@ describe('Directive: conversationControl', function () {
                 expect(_message.conversationId).toEqual(CONVERSATION_ID);
             });
         });
+
+        /**
+         * notUnderstood
+         */
+        describe('notUnderstood', function() {
+            it('should execute callback with \'not-understood propose|discharge|perform\' message parameter', function() {
+                element = _createDirective(REPLY_PROPOSE_DISCHARGE_PERFORM_ACTION, CLIENT,
+                    '<conversation-control sc="{{sc}}" email="{{email}}" conversation-id="{{conversationId}}">' +  
+                    '</conversation-control>');  
+                var isolateScope = element.scope();
+                isolateScope.notUnderstood();
+
+                console.log(_message);
+                expect(_message.sender).toEqual(CLIENT);
+                expect(_message.receiver).toEqual(SERVER);
+                expect(_message.performative).toEqual('not-understood propose|discharge|perform');
+                expect(_message.action).toEqual('friend');
+                expect(_message.conversationId).toEqual(CONVERSATION_ID);
+            });
+        });
+
+
         /**
          * request
          */

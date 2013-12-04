@@ -112,24 +112,10 @@ describe('Directive: conversationControl', function () {
         scope.conversationId = CONVERSATION_ID;
 
         var element = angular.element('<div>' + template +'</div>');
-        console.log('element');
         compile(element.contents())(scope);
-        console.log(element.html());
+        scope.$apply();
 
         return element.html();
-
-//        template = compile(template)(scope);
-//        console.log('compiled template');
-//        console.log(template);
-// 
-//
-//        var blank = angular.element('<div></div>');
-////        blank.html(template);
-//        angular.element(blank).append(template);
-//   
-////        blank = compile(blank.html())(scope);
-
-//        return blank.html();
     }
 
     /**

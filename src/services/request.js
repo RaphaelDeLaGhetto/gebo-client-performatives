@@ -184,6 +184,10 @@ angular.module('gebo-client-performatives.request', ['ngRoute', 'ngResource']).
          */
         function _getDirectiveName(sc, email) {
 
+            if (typeof sc === 'string') {
+              sc = JSON.parse(sc);
+            }
+
             // Determine the agent's role
             var role = 'server';
             switch(sc.performative) {

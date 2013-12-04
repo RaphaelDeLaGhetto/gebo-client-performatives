@@ -274,6 +274,15 @@ describe('Service: Request', function () {
                 var name = request.getDirectiveName(REPLY_PROPOSE_DISCHARGE_PERFORM_ACTION, SERVER);
                 expect(name).toEqual('server-reply-propose-discharge-perform');
             });
+
+            it('should handle a JSON string and return server-reply-propose-discharge-perform', function() {
+                var jsonString = JSON.stringify(REPLY_PROPOSE_DISCHARGE_PERFORM_ACTION);
+                expect(typeof jsonString).toEqual('string');
+                var name = request.getDirectiveName(jsonString, SERVER);
+                expect(name).toEqual('server-reply-propose-discharge-perform');
+            });
+
+
         });
     });
 });

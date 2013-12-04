@@ -6,7 +6,13 @@ describe('Service: Request', function () {
 
     var CLIENT = 'yanfen@example.com',
         SERVER = 'dan@example.com',
-        GEBO = 'https://somegebo.com';
+        GEBO = 'https://somegebo.com',
+        CONTENT = {
+                name: 'Sam Sender',
+                email: 'sender@example.com',
+                uri: 'https://somegebo.com',
+                publicKey: '1234567890'    
+            };
 
     /**
      * Conversation
@@ -98,13 +104,17 @@ describe('Service: Request', function () {
     describe('Client', function() {
         describe('request', function() {
             it('should return a properly formatted \'request action\' message', function() {
-                request.request(CLIENT, SERVER, 'friend', GEBO);
+                request.request(CLIENT, SERVER, 'friend', GEBO, CONTENT);
                 expect(_message.sender).toEqual(CLIENT);
                 expect(_message.receiver).toEqual(SERVER);
                 expect(_message.performative).toEqual('request');
                 expect(_message.action).toEqual('friend');
                 expect(_message.gebo).toEqual(GEBO);
                 expect(_message.conversationId).toBe(undefined);
+                expect(_message.content.name).toBe('Sam Sender');
+                expect(_message.content.email).toBe('sender@example.com');
+                expect(_message.content.uri).toBe('https://somegebo.com');
+                expect(_message.content.publicKey).toBe('1234567890');
             });
         }); 
     
@@ -116,6 +126,7 @@ describe('Service: Request', function () {
                 expect(_message.performative).toEqual('cancel request');
                 expect(_message.action).toEqual('friend');
                 expect(_message.conversationId).toBe(REQUEST_CONVERSATION.conversationId);
+                expect(_message.content).toBe('some data');
             });
         });
 
@@ -127,6 +138,7 @@ describe('Service: Request', function () {
                 expect(_message.performative).toEqual('not-understood propose|discharge|perform');
                 expect(_message.action).toEqual('friend');
                 expect(_message.conversationId).toBe(REQUEST_CONVERSATION.conversationId);
+                expect(_message.content).toBe('some data');
             });
         });
 
@@ -138,6 +150,7 @@ describe('Service: Request', function () {
                 expect(_message.performative).toEqual('refuse propose|discharge|perform');
                 expect(_message.action).toEqual('friend');
                 expect(_message.conversationId).toBe(REQUEST_CONVERSATION.conversationId);
+                expect(_message.content).toBe('some data');
             });
         });
 
@@ -149,6 +162,7 @@ describe('Service: Request', function () {
                 expect(_message.performative).toEqual('timeout propose|discharge|perform');
                 expect(_message.action).toEqual('friend');
                 expect(_message.conversationId).toBe(REQUEST_CONVERSATION.conversationId);
+                expect(_message.content).toBe('some data');
             });
         });
 
@@ -160,6 +174,7 @@ describe('Service: Request', function () {
                 expect(_message.performative).toEqual('agree propose|discharge|perform');
                 expect(_message.action).toEqual('friend');
                 expect(_message.conversationId).toBe(REQUEST_CONVERSATION.conversationId);
+                expect(_message.content).toBe('some data');
             });
         });
     });
@@ -173,6 +188,7 @@ describe('Service: Request', function () {
                 expect(_message.performative).toEqual('not-understood request');
                 expect(_message.action).toEqual('friend');
                 expect(_message.conversationId).toBe(REQUEST_CONVERSATION.conversationId);
+                expect(_message.content).toBe('some data');
             });
         }); 
     
@@ -184,6 +200,7 @@ describe('Service: Request', function () {
                 expect(_message.performative).toEqual('refuse request');
                 expect(_message.action).toEqual('friend');
                 expect(_message.conversationId).toBe(REQUEST_CONVERSATION.conversationId);
+                expect(_message.content).toBe('some data');
             });
         });
 
@@ -196,6 +213,7 @@ describe('Service: Request', function () {
                 expect(_message.performative).toEqual('timeout request');
                 expect(_message.action).toEqual('friend');
                 expect(_message.conversationId).toBe(REQUEST_CONVERSATION.conversationId);
+                expect(_message.content).toBe('some data');
             });
         });
 
@@ -207,6 +225,7 @@ describe('Service: Request', function () {
                 expect(_message.performative).toEqual('agree request');
                 expect(_message.action).toEqual('friend');
                 expect(_message.conversationId).toBe(REQUEST_CONVERSATION.conversationId);
+                expect(_message.content).toBe('some data');
             });
         });
 
@@ -218,6 +237,7 @@ describe('Service: Request', function () {
                 expect(_message.performative).toEqual('failure perform');
                 expect(_message.action).toEqual('friend');
                 expect(_message.conversationId).toBe(REQUEST_CONVERSATION.conversationId);
+                expect(_message.content).toBe('some data');
             });
         });
 
@@ -230,6 +250,7 @@ describe('Service: Request', function () {
                 expect(_message.performative).toEqual('timeout perform');
                 expect(_message.action).toEqual('friend');
                 expect(_message.conversationId).toBe(REQUEST_CONVERSATION.conversationId);
+                expect(_message.content).toBe('some data');
             });
         });
 
@@ -242,6 +263,7 @@ describe('Service: Request', function () {
                 expect(_message.performative).toEqual('propose discharge|perform');
                 expect(_message.action).toEqual('friend');
                 expect(_message.conversationId).toBe(REQUEST_CONVERSATION.conversationId);
+                expect(_message.content).toBe('some data');
             });
         });
     });
@@ -293,8 +315,6 @@ describe('Service: Request', function () {
                 var name = request.getDirectiveName(jsonString, SERVER);
                 expect(name).toEqual('server-reply-propose-discharge-perform');
             });
-
-
         });
     });
 });

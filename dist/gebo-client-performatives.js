@@ -79,6 +79,14 @@ angular.module('gebo-client-performatives.conversationControl',
                 };
 
             /**
+             * perform
+             */
+            $scope.perform = function() {
+                    Request.perform($scope.sc, $scope.email, $scope.conversationId);
+                };
+
+
+            /**
              * proposeDischarge
              */
             $scope.proposeDischarge = function() {
@@ -160,20 +168,20 @@ angular.module('gebo-client-performatives.requestControl',
 
 angular.module("templates/client-propose-discharge-perform.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("templates/client-propose-discharge-perform.html",
-    "<div ng-hide=\"sc.fulfilled\">\n" +
+    "<span ng-hide=\"sc.fulfilled\">\n" +
     "    <button class=\"btn btn-small\" ng-click=\"cancel()\">\n" +
     "        <span class=\"glyphicon glyphicon-remove\"></span>\n" +
     "    </button>\n" +
-    "</div>\n" +
-    "<div ng-show=\"sc.fulfilled\">\n" +
+    "</span>\n" +
+    "<span ng-show=\"sc.fulfilled\">\n" +
     "    <span class=\"glyphicon glyphicon-check\"></span>\n" +
-    "</div>\n" +
+    "</span>\n" +
     "");
 }]);
 
 angular.module("templates/client-reply-propose-discharge-perform.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("templates/client-reply-propose-discharge-perform.html",
-    "<div ng-hide=\"sc.fulfilled\">\n" +
+    "<span ng-hide=\"sc.fulfilled\">\n" +
     "    <button class=\"btn btn-small\" ng-click=\"notUnderstood()\">\n" +
     "        <span class=\"glyphicon glyphicon-question-sign\"></span>\n" +
     "    </button>\n" +
@@ -186,44 +194,45 @@ angular.module("templates/client-reply-propose-discharge-perform.html", []).run(
     "    <button class=\"btn btn-small\" ng-click=\"agree()\">\n" +
     "        <span class=\"glyphicon glyphicon-thumbs-up\"></span>\n" +
     "    </button>\n" +
-    "</div>\n" +
-    "<div ng-show=\"sc.fulfilled\">\n" +
+    "</span>\n" +
+    "<span ng-show=\"sc.fulfilled\">\n" +
     "    <span class=\"glyphicon glyphicon-check\"></span>\n" +
-    "</div>\n" +
+    "</span>\n" +
     "");
 }]);
 
 angular.module("templates/client-reply-request.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("templates/client-reply-request.html",
-    "<div ng-show=\"sc.fulfilled\">\n" +
+    "<span ng-show=\"sc.fulfilled\">\n" +
     "    <span class=\"glyphicon glyphicon-check\"></span>\n" +
-    "</div>\n" +
+    "</span>\n" +
     "");
 }]);
 
 angular.module("templates/request-control.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("templates/request-control.html",
     "<button class=\"btn btn-small\" ng-click=\"request()\">\n" +
-    "    <span class=\"glyphicon glyphicon-envelope\"></span></button>\n" +
+    "    <span class=\"glyphicon glyphicon-envelope\"></span>\n" +
+    "</button>\n" +
     "");
 }]);
 
 angular.module("templates/server-perform.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("templates/server-perform.html",
-    "<div ng-hide=\"sc.fulfilled\">\n" +
-    "    <button class=\"btn btn-small\" ng-click=\"\">\n" +
+    "<span ng-hide=\"sc.fulfilled\">\n" +
+    "    <button class=\"btn btn-small\" ng-click=\"perform()\">\n" +
     "        <span class=\"glyphicon glyphicon-ok\"></span>\n" +
     "    </button>\n" +
-    "</div>\n" +
-    "<div ng-show=\"sc.fulfilled\">\n" +
+    "</span>\n" +
+    "<span ng-show=\"sc.fulfilled\">\n" +
     "    <span class=\"glyphicon glyphicon-check\"></span>\n" +
-    "</div>\n" +
+    "</span>\n" +
     "");
 }]);
 
 angular.module("templates/server-propose-discharge-perform.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("templates/server-propose-discharge-perform.html",
-    "<div ng-hide=\"sc.fulfilled\">\n" +
+    "<span ng-hide=\"sc.fulfilled\">\n" +
     "    <button class=\"btn btn-small\" ng-click=\"failure()\">\n" +
     "        <span class=\"glyphicon glyphicon-flash\"></span>\n" +
     "    </button>\n" +
@@ -233,24 +242,24 @@ angular.module("templates/server-propose-discharge-perform.html", []).run(["$tem
     "    <button class=\"btn btn-small\" ng-click=\"proposeDischarge()\">\n" +
     "        <span class=\"glyphicon glyphicon-thumbs-up\"></span>\n" +
     "    </button>\n" +
-    "</div>\n" +
-    "<div ng-show=\"sc.fulfilled\">\n" +
+    "</span>\n" +
+    "<span ng-show=\"sc.fulfilled\">\n" +
     "    <span class=\"glyphicon glyphicon-check\"></span>\n" +
-    "</div>\n" +
+    "</span>\n" +
     "");
 }]);
 
 angular.module("templates/server-reply-propose-discharge-perform.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("templates/server-reply-propose-discharge-perform.html",
-    "<div ng-show=\"sc.fulfilled\">\n" +
+    "<span ng-show=\"sc.fulfilled\">\n" +
     "    <span class=\"glyphicon glyphicon-check\"></span>\n" +
-    "</div>\n" +
+    "</span>\n" +
     "");
 }]);
 
 angular.module("templates/server-reply-request.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("templates/server-reply-request.html",
-    "<div ng-hide=\"sc.fulfilled\">\n" +
+    "<span ng-hide=\"sc.fulfilled\">\n" +
     "    <button class=\"btn btn-small\" ng-click=\"notUnderstood()\">\n" +
     "        <span class=\"glyphicon glyphicon-question-sign\"></span>\n" +
     "    </button>\n" +
@@ -263,10 +272,10 @@ angular.module("templates/server-reply-request.html", []).run(["$templateCache",
     "    <button class=\"btn btn-small\" ng-click=\"agree()\">\n" +
     "        <span class=\"glyphicon glyphicon-thumbs-up\"></span>\n" +
     "    </button>\n" +
-    "</div>\n" +
-    "<div ng-show=\"sc.fulfilled\">\n" +
+    "</span>\n" +
+    "<span ng-show=\"sc.fulfilled\">\n" +
     "    <span class=\"glyphicon glyphicon-check\"></span>\n" +
-    "</div>\n" +
+    "</span>\n" +
     "");
 }]);
 
@@ -289,6 +298,22 @@ angular.module('gebo-client-performatives.request', ['ngRoute', 'ngResource']).
 
         function _setCallback(fn) {
             _callback = fn;
+          };
+
+        /**
+         * The method called when the server is 
+         * able to perform a gebo-defined action. 
+         * It is meant to be overwritten.
+         * This function is simply defined to give 
+         * feedback while the system is being 
+         * configured
+         */
+        var _performCallback = function(msg) {
+            console.log(msg);
+          };
+
+        function _setPerformCallback(fn) {
+            _performCallback = fn;
           };
 
         /**
@@ -426,6 +451,26 @@ angular.module('gebo-client-performatives.request', ['ngRoute', 'ngResource']).
           };
 
         /**
+         * Perform the request action by passing the
+         * given parameters to the _performCallback function
+         *
+         * @param Object - social commitment
+         * @param string - email of sender
+         * @param string - conversation ID
+         *
+         * @return Object
+         */
+        function _perform(sc, email, id) {
+            _performCallback({
+                    sender: email,
+                    receiver: email, //sc.debtor === email? sc.creditor: sc.debtor,
+                    performative: 'perform',
+                    action: sc.action,
+                    conversationId: id,
+                });
+          };
+
+        /**
          * Signal that the request action has been performed 
          *
          * @param Object - social commitment
@@ -480,13 +525,16 @@ angular.module('gebo-client-performatives.request', ['ngRoute', 'ngResource']).
 
         return {
             agree: _agree,
-            callback: function(msg){ _callback(msg); },
+            callback: function(msg) { _callback(msg); },
             cancel: _cancel,
             failure: _failure,
             getDirectiveName: _getDirectiveName,
             notUnderstood: _notUnderstood,
+            perform: _perform,
+            performCallback: function(msg) { _performCallback(msg); },
             proposeDischarge: _proposeDischarge,
             setCallback: _setCallback,
+            setPerformCallback: _setPerformCallback,
             refuse: _refuse,
             request: _request,
             timeout: _timeout,

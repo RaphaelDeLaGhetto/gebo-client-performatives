@@ -323,16 +323,18 @@ angular.module('gebo-client-performatives.request', ['ngRoute', 'ngResource']).
          * @param string
          * @param string
          * @param string
+         * @param Object
          *
          * @return Object
          */
-        function _request(sender, receiver, action, gebo) {
+        function _request(sender, receiver, action, gebo, content) {
             _callback({
                     sender: sender,
                     receiver: receiver,
                     performative: 'request',
                     action: action,
                     gebo: gebo,
+                    content: content,
                 });
           };
 
@@ -352,6 +354,7 @@ angular.module('gebo-client-performatives.request', ['ngRoute', 'ngResource']).
                     performative: 'cancel request',
                     action: sc.action,
                     conversationId: id,
+                    content: sc.message.content,
                 });
           };
 
@@ -371,6 +374,7 @@ angular.module('gebo-client-performatives.request', ['ngRoute', 'ngResource']).
                     performative: 'not-understood ' + sc.performative.split(' ').pop(),
                     action: sc.action,
                     conversationId: id,
+                    content: sc.message.content,
                 });
           };
 
@@ -390,6 +394,7 @@ angular.module('gebo-client-performatives.request', ['ngRoute', 'ngResource']).
                     performative: 'refuse ' + sc.performative.split(' ').pop(),
                     action: sc.action,
                     conversationId: id,
+                    content: sc.message.content,
                 });
           };
 
@@ -409,6 +414,7 @@ angular.module('gebo-client-performatives.request', ['ngRoute', 'ngResource']).
                     performative: 'timeout ' + sc.performative.split(' ').pop(),
                     action: sc.action,
                     conversationId: id,
+                    content: sc.message.content,
                 });
           };
 
@@ -428,6 +434,7 @@ angular.module('gebo-client-performatives.request', ['ngRoute', 'ngResource']).
                     performative: 'agree ' + sc.performative.split(' ').pop(),
                     action: sc.action,
                     conversationId: id,
+                    content: sc.message.content,
                 });
           };
 
@@ -447,6 +454,7 @@ angular.module('gebo-client-performatives.request', ['ngRoute', 'ngResource']).
                     performative: 'failure ' + sc.performative.split(' ').pop(),
                     action: sc.action,
                     conversationId: id,
+                    content: sc.message.content,
                 });
           };
 
@@ -467,6 +475,7 @@ angular.module('gebo-client-performatives.request', ['ngRoute', 'ngResource']).
                     performative: 'perform',
                     action: sc.action,
                     conversationId: id,
+                    content: sc.message.content,
                 });
           };
 
@@ -486,6 +495,7 @@ angular.module('gebo-client-performatives.request', ['ngRoute', 'ngResource']).
                     performative: 'propose ' + sc.performative.split(' ').pop(),
                     action: sc.action,
                     conversationId: id,
+                    content: sc.message.content,
                 });
           };
 

@@ -78,6 +78,14 @@ angular.module('gebo-client-performatives.conversationControl',
                 };
 
             /**
+             * perform
+             */
+            $scope.perform = function() {
+                    Request.perform($scope.sc, $scope.email, $scope.conversationId);
+                };
+
+
+            /**
              * proposeDischarge
              */
             $scope.proposeDischarge = function() {

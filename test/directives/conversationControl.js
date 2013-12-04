@@ -127,6 +127,14 @@ describe('Directive: conversationControl', function () {
         _message = message;
       }
 
+    /**
+     * The Request callback that performs
+     * the server action
+     */
+    var _perform = function(message) {
+        _message = message;
+      }
+
     beforeEach(module('gebo-client-performatives.conversationControl'));
 
     beforeEach(function() {
@@ -139,11 +147,17 @@ describe('Directive: conversationControl', function () {
         });
 
         request.setCallback(_callback);
+        request.setPerformCallback(_callback);
         _message = {};
     });
 
     it('should have set a callback function', function() {
         request.callback({ some: 'message' });
+        expect(_message.some).toEqual('message');
+    });
+
+    it('should have set a perform callback function', function() {
+        request.performCallback({ some: 'message' });
         expect(_message.some).toEqual('message');
     });
 
@@ -288,6 +302,25 @@ describe('Directive: conversationControl', function () {
                 expect(_message.sender).toEqual(SERVER);
                 expect(_message.receiver).toEqual(CLIENT);
                 expect(_message.performative).toEqual('failure perform');
+                expect(_message.action).toEqual('friend');
+                expect(_message.conversationId).toEqual(CONVERSATION_ID);
+            });
+        });
+
+        /**
+         * perform
+         */
+        describe('perform', function() {
+            it('should execute callback', function() {
+                element = _createDirective(PERFORM_ACTION, SERVER,
+                    '<conversation-control sc="{{sc}}" email="{{email}}" conversation-id="{{conversationId}}">' +  
+                    '</conversation-control>');  
+                var isolateScope = element.scope();
+                isolateScope.perform();
+
+                expect(_message.sender).toEqual(SERVER);
+                expect(_message.receiver).toEqual(SERVER);
+                expect(_message.performative).toEqual('perform');
                 expect(_message.action).toEqual('friend');
                 expect(_message.conversationId).toEqual(CONVERSATION_ID);
             });

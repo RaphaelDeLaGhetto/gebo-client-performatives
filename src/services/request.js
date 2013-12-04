@@ -20,6 +20,22 @@ angular.module('gebo-client-performatives.request', ['ngRoute', 'ngResource']).
           };
 
         /**
+         * The method called when the server is 
+         * able to perform a gebo-defined action. 
+         * It is meant to be overwritten.
+         * This function is simply defined to give 
+         * feedback while the system is being 
+         * configured
+         */
+        var _performCallback = function(msg) {
+            console.log(msg);
+          };
+
+        function _setPerformCallback(fn) {
+            _performCallback = fn;
+          };
+
+        /**
          * Initiate a request
          *
          * @param string
@@ -154,6 +170,26 @@ angular.module('gebo-client-performatives.request', ['ngRoute', 'ngResource']).
           };
 
         /**
+         * Perform the request action by passing the
+         * given parameters to the _performCallback function
+         *
+         * @param Object - social commitment
+         * @param string - email of sender
+         * @param string - conversation ID
+         *
+         * @return Object
+         */
+        function _perform(sc, email, id) {
+            _performCallback({
+                    sender: email,
+                    receiver: email, //sc.debtor === email? sc.creditor: sc.debtor,
+                    performative: 'perform',
+                    action: sc.action,
+                    conversationId: id,
+                });
+          };
+
+        /**
          * Signal that the request action has been performed 
          *
          * @param Object - social commitment
@@ -208,13 +244,16 @@ angular.module('gebo-client-performatives.request', ['ngRoute', 'ngResource']).
 
         return {
             agree: _agree,
-            callback: function(msg){ _callback(msg); },
+            callback: function(msg) { _callback(msg); },
             cancel: _cancel,
             failure: _failure,
             getDirectiveName: _getDirectiveName,
             notUnderstood: _notUnderstood,
+            perform: _perform,
+            performCallback: function(msg) { _performCallback(msg); },
             proposeDischarge: _proposeDischarge,
             setCallback: _setCallback,
+            setPerformCallback: _setPerformCallback,
             refuse: _refuse,
             request: _request,
             timeout: _timeout,

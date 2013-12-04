@@ -64,13 +64,19 @@ describe('Service: Request', function () {
         _message = message;
       }
 
+    var _performCallback = function(message) {
+        _message = message;
+      }
+
+
     beforeEach(module('gebo-client-performatives.request'));
 
     beforeEach(inject(function(Request, $injector) {
         request = Request;
 
-        // Set callback
+        // Set callbacks
         request.setCallback(_callback);
+        request.setPerformCallback(_performCallback);
         _message = {};
     }));
 
@@ -82,6 +88,12 @@ describe('Service: Request', function () {
         request.callback({ some: 'message' });
         expect(_message.some).toEqual('message');
     });
+
+    it('should have set a perform callback function', function() {
+        request.performCallback({ some: 'message' });
+        expect(_message.some).toEqual('message');
+    });
+
 
     describe('Client', function() {
         describe('request', function() {

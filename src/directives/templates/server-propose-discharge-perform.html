@@ -1,0 +1,14 @@
+<div ng-hide="sc.fulfilled">
+    <button class="btn btn-small" ng-click="failure()">
+        <span class="glyphicon glyphicon-flash"></span>
+    </button>
+    <button class="btn btn-small" ng-click="timeout()">
+        <span class="glyphicon glyphicon-time"></span>
+    </button>
+    <button class="btn btn-small" ng-click="proposeDischarge()">
+        <span class="glyphicon glyphicon-thumbs-up"></span>
+    </button>
+</div>
+<div ng-show="sc.fulfilled">
+    <span class="glyphicon glyphicon-check"></span>
+</div>

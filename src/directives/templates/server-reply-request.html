@@ -1,6 +1,17 @@
-<button class="btn btn-small" ng-click="notUnderstood()">
-    <span class="glyphicon glyphicon-question-sign"></span></button>
-<button class="btn btn-small" ng-click="refuse()">
-    <span class="glyphicon glyphicon-thumbs-down"></span></button>
-<button class="btn btn-small" ng-click="agree()">
-    <span class="glyphicon glyphicon-thumbs-up"></span></button>
+<div ng-hide="sc.fulfilled">
+    <button class="btn btn-small" ng-click="notUnderstood()">
+        <span class="glyphicon glyphicon-question-sign"></span>
+    </button>
+    <button class="btn btn-small" ng-click="refuse()">
+        <span class="glyphicon glyphicon-thumbs-down"></span>
+    </button>
+    <button class="btn btn-small" ng-click="timeout()">
+        <span class="glyphicon glyphicon-time"></span>
+    </button>
+    <button class="btn btn-small" ng-click="agree()">
+        <span class="glyphicon glyphicon-thumbs-up"></span>
+    </button>
+</div>
+<div ng-show="sc.fulfilled">
+    <span class="glyphicon glyphicon-check"></span>
+</div>

@@ -1,2 +1,8 @@
-<button class="btn btn-small" ng-click="">
-    <span class="glyphicon glyphicon-ok"></span></button>
+<div ng-hide="sc.fulfilled">
+    <button class="btn btn-small" ng-click="">
+        <span class="glyphicon glyphicon-ok"></span>
+    </button>
+</div>
+<div ng-show="sc.fulfilled">
+    <span class="glyphicon glyphicon-check"></span>
+</div>

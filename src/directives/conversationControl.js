@@ -14,7 +14,7 @@ angular.module('gebo-client-performatives.conversationControl',
 
     var _link = function(scope, element, attributes) {
         attributes.$observe('sc', function(newValue) {
-            scope.sc = newValue;
+            scope.sc = JSON.parse(newValue);
             _compileWhenReady(scope, element);
           });
     

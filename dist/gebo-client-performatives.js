@@ -15,7 +15,7 @@ angular.module('gebo-client-performatives.conversationControl',
 
     var _link = function(scope, element, attributes) {
         attributes.$observe('sc', function(newValue) {
-            scope.sc = newValue;
+            scope.sc = JSON.parse(newValue);
             _compileWhenReady(scope, element);
           });
     
@@ -32,7 +32,7 @@ angular.module('gebo-client-performatives.conversationControl',
 
     var _compileWhenReady = function(scope, element) {
         if (scope.sc && scope.email && scope.conversationId) {
-            var directive = Request.getDirectiveName(JSON.parse(scope.sc), scope.email);
+            var directive = Request.getDirectiveName(scope.sc, scope.email);
             element.html($templateCache.get('templates/' + directive + '.html'));
             $compile(element.contents())(scope);
         }
@@ -47,49 +47,49 @@ angular.module('gebo-client-performatives.conversationControl',
              * agree
              */
             $scope.agree = function() {
-                    Request.agree(JSON.parse($scope.sc), $scope.email, $scope.conversationId);
+                    Request.agree($scope.sc, $scope.email, $scope.conversationId);
                 };
 
             /**
              * notUnderstood
              */
             $scope.notUnderstood = function() {
-                    Request.notUnderstood(JSON.parse($scope.sc), $scope.email, $scope.conversationId);
+                    Request.notUnderstood($scope.sc, $scope.email, $scope.conversationId);
                 };
 
             /**
              * refuse
              */
             $scope.refuse = function() {
-                    Request.refuse(JSON.parse($scope.sc), $scope.email, $scope.conversationId);
+                    Request.refuse($scope.sc, $scope.email, $scope.conversationId);
                 };
 
             /**
              * timeout
              */
             $scope.timeout = function() {
-                    Request.timeout(JSON.parse($scope.sc), $scope.email, $scope.conversationId);
+                    Request.timeout($scope.sc, $scope.email, $scope.conversationId);
                 };
 
             /**
              * failure
              */
             $scope.failure = function() {
-                    Request.failure(JSON.parse($scope.sc), $scope.email, $scope.conversationId);
+                    Request.failure($scope.sc, $scope.email, $scope.conversationId);
                 };
 
             /**
              * proposeDischarge
              */
             $scope.proposeDischarge = function() {
-                    Request.proposeDischarge(JSON.parse($scope.sc), $scope.email, $scope.conversationId);
+                    Request.proposeDischarge($scope.sc, $scope.email, $scope.conversationId);
                 };
 
             /**
              * cancel
              */
             $scope.cancel = function() {
-                    Request.cancel(JSON.parse($scope.sc), $scope.email, $scope.conversationId);
+                    Request.cancel($scope.sc, $scope.email, $scope.conversationId);
                 };
       };
 
@@ -160,24 +160,44 @@ angular.module('gebo-client-performatives.requestControl',
 
 angular.module("templates/client-propose-discharge-perform.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("templates/client-propose-discharge-perform.html",
-    "<button class=\"btn btn-small\" ng-click=\"cancel()\">\n" +
-    "    <span class=\"glyphicon glyphicon-remove\"></span></button>\n" +
+    "<div ng-hide=\"sc.fulfilled\">\n" +
+    "    <button class=\"btn btn-small\" ng-click=\"cancel()\">\n" +
+    "        <span class=\"glyphicon glyphicon-remove\"></span>\n" +
+    "    </button>\n" +
+    "</div>\n" +
+    "<div ng-show=\"sc.fulfilled\">\n" +
+    "    <span class=\"glyphicon glyphicon-check\"></span>\n" +
+    "</div>\n" +
     "");
 }]);
 
 angular.module("templates/client-reply-propose-discharge-perform.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("templates/client-reply-propose-discharge-perform.html",
-    "<button class=\"btn btn-small\" ng-click=\"notUnderstood()\">\n" +
-    "    <span class=\"glyphicon glyphicon-question-sign\"></span></button>\n" +
-    "<button class=\"btn btn-small\" ng-click=\"refuse()\">\n" +
-    "    <span class=\"glyphicon glyphicon-thumbs-down\"></span></button>\n" +
-    "<button class=\"btn btn-small\" ng-click=\"agree()\">\n" +
-    "    <span class=\"glyphicon glyphicon-thumbs-up\"></span></button>\n" +
+    "<div ng-hide=\"sc.fulfilled\">\n" +
+    "    <button class=\"btn btn-small\" ng-click=\"notUnderstood()\">\n" +
+    "        <span class=\"glyphicon glyphicon-question-sign\"></span>\n" +
+    "    </button>\n" +
+    "    <button class=\"btn btn-small\" ng-click=\"refuse()\">\n" +
+    "        <span class=\"glyphicon glyphicon-thumbs-down\"></span>\n" +
+    "    </button>\n" +
+    "    <button class=\"btn btn-small\" ng-click=\"timeout()\">\n" +
+    "        <span class=\"glyphicon glyphicon-time\"></span>\n" +
+    "    </button>\n" +
+    "    <button class=\"btn btn-small\" ng-click=\"agree()\">\n" +
+    "        <span class=\"glyphicon glyphicon-thumbs-up\"></span>\n" +
+    "    </button>\n" +
+    "</div>\n" +
+    "<div ng-show=\"sc.fulfilled\">\n" +
+    "    <span class=\"glyphicon glyphicon-check\"></span>\n" +
+    "</div>\n" +
     "");
 }]);
 
 angular.module("templates/client-reply-request.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("templates/client-reply-request.html",
+    "<div ng-show=\"sc.fulfilled\">\n" +
+    "    <span class=\"glyphicon glyphicon-check\"></span>\n" +
+    "</div>\n" +
     "");
 }]);
 
@@ -190,29 +210,63 @@ angular.module("templates/request-control.html", []).run(["$templateCache", func
 
 angular.module("templates/server-perform.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("templates/server-perform.html",
-    "<button class=\"btn btn-small\" ng-click=\"\">\n" +
-    "    <span class=\"glyphicon glyphicon-ok\"></span></button>\n" +
+    "<div ng-hide=\"sc.fulfilled\">\n" +
+    "    <button class=\"btn btn-small\" ng-click=\"\">\n" +
+    "        <span class=\"glyphicon glyphicon-ok\"></span>\n" +
+    "    </button>\n" +
+    "</div>\n" +
+    "<div ng-show=\"sc.fulfilled\">\n" +
+    "    <span class=\"glyphicon glyphicon-check\"></span>\n" +
+    "</div>\n" +
     "");
 }]);
 
 angular.module("templates/server-propose-discharge-perform.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("templates/server-propose-discharge-perform.html",
+    "<div ng-hide=\"sc.fulfilled\">\n" +
+    "    <button class=\"btn btn-small\" ng-click=\"failure()\">\n" +
+    "        <span class=\"glyphicon glyphicon-flash\"></span>\n" +
+    "    </button>\n" +
+    "    <button class=\"btn btn-small\" ng-click=\"timeout()\">\n" +
+    "        <span class=\"glyphicon glyphicon-time\"></span>\n" +
+    "    </button>\n" +
+    "    <button class=\"btn btn-small\" ng-click=\"proposeDischarge()\">\n" +
+    "        <span class=\"glyphicon glyphicon-thumbs-up\"></span>\n" +
+    "    </button>\n" +
+    "</div>\n" +
+    "<div ng-show=\"sc.fulfilled\">\n" +
+    "    <span class=\"glyphicon glyphicon-check\"></span>\n" +
+    "</div>\n" +
     "");
 }]);
 
 angular.module("templates/server-reply-propose-discharge-perform.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("templates/server-reply-propose-discharge-perform.html",
+    "<div ng-show=\"sc.fulfilled\">\n" +
+    "    <span class=\"glyphicon glyphicon-check\"></span>\n" +
+    "</div>\n" +
     "");
 }]);
 
 angular.module("templates/server-reply-request.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("templates/server-reply-request.html",
-    "<button class=\"btn btn-small\" ng-click=\"notUnderstood()\">\n" +
-    "    <span class=\"glyphicon glyphicon-question-sign\"></span></button>\n" +
-    "<button class=\"btn btn-small\" ng-click=\"refuse()\">\n" +
-    "    <span class=\"glyphicon glyphicon-thumbs-down\"></span></button>\n" +
-    "<button class=\"btn btn-small\" ng-click=\"agree()\">\n" +
-    "    <span class=\"glyphicon glyphicon-thumbs-up\"></span></button>\n" +
+    "<div ng-hide=\"sc.fulfilled\">\n" +
+    "    <button class=\"btn btn-small\" ng-click=\"notUnderstood()\">\n" +
+    "        <span class=\"glyphicon glyphicon-question-sign\"></span>\n" +
+    "    </button>\n" +
+    "    <button class=\"btn btn-small\" ng-click=\"refuse()\">\n" +
+    "        <span class=\"glyphicon glyphicon-thumbs-down\"></span>\n" +
+    "    </button>\n" +
+    "    <button class=\"btn btn-small\" ng-click=\"timeout()\">\n" +
+    "        <span class=\"glyphicon glyphicon-time\"></span>\n" +
+    "    </button>\n" +
+    "    <button class=\"btn btn-small\" ng-click=\"agree()\">\n" +
+    "        <span class=\"glyphicon glyphicon-thumbs-up\"></span>\n" +
+    "    </button>\n" +
+    "</div>\n" +
+    "<div ng-show=\"sc.fulfilled\">\n" +
+    "    <span class=\"glyphicon glyphicon-check\"></span>\n" +
+    "</div>\n" +
     "");
 }]);
 
@@ -401,6 +455,10 @@ angular.module('gebo-client-performatives.request', ['ngRoute', 'ngResource']).
          * @return string
          */
         function _getDirectiveName(sc, email) {
+
+            if (typeof sc === 'string') {
+              sc = JSON.parse(sc);
+            }
 
             // Determine the agent's role
             var role = 'server';

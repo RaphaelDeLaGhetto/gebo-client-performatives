@@ -106,12 +106,30 @@ describe('Directive: conversationControl', function () {
           return '';
         }
 
-        template = compile(template)(scope);
+        // Setup scope state
+        scope.sc = REPLY_PROPOSE_DISCHARGE_PERFORM_ACTION;
+        scope.email = 'email@email.com';
+        scope.conversationId = CONVERSATION_ID;
 
-        var blank = angular.element('<div></div>');
-        angular.element(blank).append(template);
-    
-        return blank.html();
+        var element = angular.element('<div>' + template +'</div>');
+        console.log('element');
+        compile(element.contents())(scope);
+        console.log(element.html());
+
+        return element.html();
+
+//        template = compile(template)(scope);
+//        console.log('compiled template');
+//        console.log(template);
+// 
+//
+//        var blank = angular.element('<div></div>');
+////        blank.html(template);
+//        angular.element(blank).append(template);
+//   
+////        blank = compile(blank.html())(scope);
+
+//        return blank.html();
     }
 
     /**

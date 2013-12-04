@@ -46,49 +46,49 @@ angular.module('gebo-client-performatives.conversationControl',
              * agree
              */
             $scope.agree = function() {
-                    Request.agree(JSON.parse($scope.sc), $scope.email, $scope.conversationId);
+                    Request.agree($scope.sc, $scope.email, $scope.conversationId);
                 };
 
             /**
              * notUnderstood
              */
             $scope.notUnderstood = function() {
-                    Request.notUnderstood(JSON.parse($scope.sc), $scope.email, $scope.conversationId);
+                    Request.notUnderstood($scope.sc, $scope.email, $scope.conversationId);
                 };
 
             /**
              * refuse
              */
             $scope.refuse = function() {
-                    Request.refuse(JSON.parse($scope.sc), $scope.email, $scope.conversationId);
+                    Request.refuse($scope.sc, $scope.email, $scope.conversationId);
                 };
 
             /**
              * timeout
              */
             $scope.timeout = function() {
-                    Request.timeout(JSON.parse($scope.sc), $scope.email, $scope.conversationId);
+                    Request.timeout($scope.sc, $scope.email, $scope.conversationId);
                 };
 
             /**
              * failure
              */
             $scope.failure = function() {
-                    Request.failure(JSON.parse($scope.sc), $scope.email, $scope.conversationId);
+                    Request.failure($scope.sc, $scope.email, $scope.conversationId);
                 };
 
             /**
              * proposeDischarge
              */
             $scope.proposeDischarge = function() {
-                    Request.proposeDischarge(JSON.parse($scope.sc), $scope.email, $scope.conversationId);
+                    Request.proposeDischarge($scope.sc, $scope.email, $scope.conversationId);
                 };
 
             /**
              * cancel
              */
             $scope.cancel = function() {
-                    Request.cancel(JSON.parse($scope.sc), $scope.email, $scope.conversationId);
+                    Request.cancel($scope.sc, $scope.email, $scope.conversationId);
                 };
       };
 

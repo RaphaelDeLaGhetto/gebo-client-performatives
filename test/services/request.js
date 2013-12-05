@@ -102,19 +102,19 @@ describe('Service: Request', function () {
 
 
     describe('Client', function() {
-        describe('request', function() {
+        describe('make', function() {
             it('should return a properly formatted \'request action\' message', function() {
-                request.request(CLIENT, SERVER, 'friend', GEBO, CONTENT);
-                expect(_message.sender).toEqual(CLIENT);
-                expect(_message.receiver).toEqual(SERVER);
-                expect(_message.performative).toEqual('request');
-                expect(_message.action).toEqual('friend');
-                expect(_message.gebo).toEqual(GEBO);
-                expect(_message.conversationId).toBe(undefined);
-                expect(_message.content.name).toBe('Sam Sender');
-                expect(_message.content.email).toBe('sender@example.com');
-                expect(_message.content.uri).toBe('https://somegebo.com');
-                expect(_message.content.publicKey).toBe('1234567890');
+                var message = request.make(CLIENT, SERVER, 'friend', GEBO, CONTENT);
+                expect(message.sender).toEqual(CLIENT);
+                expect(message.receiver).toEqual(SERVER);
+                expect(message.performative).toEqual('request');
+                expect(message.action).toEqual('friend');
+                expect(message.gebo).toEqual(GEBO);
+                expect(message.conversationId).toBe(undefined);
+                expect(message.content.name).toBe('Sam Sender');
+                expect(message.content.email).toBe('sender@example.com');
+                expect(message.content.uri).toBe('https://somegebo.com');
+                expect(message.content.publicKey).toBe('1234567890');
             });
         }); 
     

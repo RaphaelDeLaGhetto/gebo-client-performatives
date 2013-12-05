@@ -36,7 +36,7 @@ angular.module('gebo-client-performatives.request', ['ngRoute', 'ngResource']).
           };
 
         /**
-         * Initiate a request
+         * Get an initial request message
          *
          * @param string
          * @param string
@@ -46,15 +46,15 @@ angular.module('gebo-client-performatives.request', ['ngRoute', 'ngResource']).
          *
          * @return Object
          */
-        function _request(sender, receiver, action, gebo, content) {
-            _callback({
+        function _make(sender, receiver, action, gebo, content) {
+            return {
                     sender: sender,
                     receiver: receiver,
                     performative: 'request',
                     action: action,
                     gebo: gebo,
                     content: content,
-                });
+                };
           };
 
         /**
@@ -258,6 +258,7 @@ angular.module('gebo-client-performatives.request', ['ngRoute', 'ngResource']).
             cancel: _cancel,
             failure: _failure,
             getDirectiveName: _getDirectiveName,
+            make: _make,
             notUnderstood: _notUnderstood,
             perform: _perform,
             performCallback: function(msg) { _performCallback(msg); },
@@ -265,7 +266,6 @@ angular.module('gebo-client-performatives.request', ['ngRoute', 'ngResource']).
             setCallback: _setCallback,
             setPerformCallback: _setPerformCallback,
             refuse: _refuse,
-            request: _request,
             timeout: _timeout,
         };
       });

@@ -40,7 +40,7 @@ angular.module('gebo-client-performatives.requestControl',
 
     return {
             restrict: 'E',
-            scope: true,
+            scope: false,
             link: _link,
          };
       });

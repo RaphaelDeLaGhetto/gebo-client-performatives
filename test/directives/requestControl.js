@@ -79,15 +79,6 @@ describe('Directive: requestControl', function () {
         return blank.html();
     }
 
-    /**
-     * The Request callback that delivers
-     * the new message to the sender
-     */
-    var _message;
-    var _callback = function(message) {
-        _message = message;
-      }
-
     beforeEach(module('gebo-client-performatives.requestControl'));
 
     beforeEach(function() {
@@ -98,14 +89,6 @@ describe('Directive: requestControl', function () {
             templateCache = $templateCache;
             request = Request;
         });
-
-        request.setCallback(_callback);
-        _message = {};
-    });
-
-    it('should have set a callback function', function() {
-        request.callback({ some: 'message' });
-        expect(_message.some).toEqual('message');
     });
 
     it('should render the expected request-control output', function() {
@@ -119,21 +102,6 @@ describe('Directive: requestControl', function () {
      * request
      */
     describe('request', function() {
-        it('should create a \'request action\' message', function() {
-            element = _createDirective(CLIENT, SERVER, ACTION, GEBO,
-                    '<request-control sender="{{sender}}" receiver="{{receiver}}" action="{{action}}" gebo="{{gebo}}">' + 
-                    '</request-control>');  
-            var isolateScope = element.scope();
-            isolateScope.request();
-
-            expect(_message.sender).toEqual(CLIENT);
-            expect(_message.receiver).toEqual(SERVER);
-            expect(_message.performative).toEqual('request');
-            expect(_message.action).toEqual('friend');
-            expect(_message.conversationId).toBe(undefined);
-            expect(_message.content).toBe(undefined);
-            expect(element.children().prop('disabled')).toBeFalsy();
-        });
 
         it('should be disabled if \'sender\' attribute is not set', function() {
             element = _createDirective(CLIENT, SERVER, ACTION, GEBO,
@@ -162,7 +130,6 @@ describe('Directive: requestControl', function () {
                     '</request-control>'); 
             expect(element.children().prop('disabled')).toBeTruthy();
         });
-
 
     });
 });

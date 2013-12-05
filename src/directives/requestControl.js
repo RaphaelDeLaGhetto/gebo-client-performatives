@@ -38,24 +38,10 @@ angular.module('gebo-client-performatives.requestControl',
         $compile(element.contents())(scope);
       };
 
-    /**
-     * Controller
-     */
-    var _controller = function($scope, $element, $attrs, $transclude) {
-
-        /**
-         * request
-         */
-        $scope.request = function() {
-            Request.request($scope.sender, $scope.receiver, $scope.action, $scope.gebo);
-          };
-      };
-
     return {
             restrict: 'E',
             scope: true,
             link: _link,
-            controller: _controller,
          };
       });
   }());

@@ -151,24 +151,10 @@ angular.module('gebo-client-performatives.requestControl',
         $compile(element.contents())(scope);
       };
 
-    /**
-     * Controller
-     */
-    var _controller = function($scope, $element, $attrs, $transclude) {
-
-        /**
-         * request
-         */
-        $scope.request = function() {
-            Request.request($scope.sender, $scope.receiver, $scope.action, $scope.gebo);
-          };
-      };
-
     return {
             restrict: 'E',
             scope: true,
             link: _link,
-            controller: _controller,
          };
       });
   }());
@@ -219,8 +205,7 @@ angular.module("templates/client-reply-request.html", []).run(["$templateCache",
 
 angular.module("templates/request-control.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("templates/request-control.html",
-    "<button class=\"btn btn-small\" ng-click=\"request()\"\n" +
-    "        ng-disabled=\"!'{{sender}}' || !'{{receiver}}' || !'{{action}}' || !'{{gebo}}'\">\n" +
+    "<button class=\"btn btn-small\" ng-disabled=\"!'{{sender}}' || !'{{receiver}}' || !'{{action}}' || !'{{gebo}}'\">\n" +
     "    <span class=\"glyphicon glyphicon-envelope\"></span>\n" +
     "</button>\n" +
     "");
@@ -326,7 +311,7 @@ angular.module('gebo-client-performatives.request', ['ngRoute', 'ngResource']).
           };
 
         /**
-         * Initiate a request
+         * Get an initial request message
          *
          * @param string
          * @param string
@@ -336,15 +321,15 @@ angular.module('gebo-client-performatives.request', ['ngRoute', 'ngResource']).
          *
          * @return Object
          */
-        function _request(sender, receiver, action, gebo, content) {
-            _callback({
+        function _make(sender, receiver, action, gebo, content) {
+            return {
                     sender: sender,
                     receiver: receiver,
                     performative: 'request',
                     action: action,
                     gebo: gebo,
                     content: content,
-                });
+                };
           };
 
         /**
@@ -548,6 +533,7 @@ angular.module('gebo-client-performatives.request', ['ngRoute', 'ngResource']).
             cancel: _cancel,
             failure: _failure,
             getDirectiveName: _getDirectiveName,
+            make: _make,
             notUnderstood: _notUnderstood,
             perform: _perform,
             performCallback: function(msg) { _performCallback(msg); },
@@ -555,7 +541,6 @@ angular.module('gebo-client-performatives.request', ['ngRoute', 'ngResource']).
             setCallback: _setCallback,
             setPerformCallback: _setPerformCallback,
             refuse: _refuse,
-            request: _request,
             timeout: _timeout,
         };
       });

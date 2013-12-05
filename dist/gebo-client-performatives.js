@@ -120,10 +120,35 @@ angular.module('gebo-client-performatives.requestControl',
     directive('requestControl', function ($templateCache, Request, $compile) {
 
     var _link = function(scope, element, attributes) {
-        if (scope.sender && scope.receiver && scope.action && scope.gebo) {
-            element.html($templateCache.get('templates/request-control.html'));
-            $compile(element.contents())(scope);
-        }
+        attributes.$observe('sender', function(newValue) {
+            scope.sender = newValue;
+            _compileWhenReady(scope, element);
+          });
+
+        attributes.$observe('receiver', function(newValue) {
+            scope.receiver = newValue;
+            _compileWhenReady(scope, element);
+          });
+
+        attributes.$observe('action', function(newValue) {
+            scope.action = newValue;
+            _compileWhenReady(scope, element);
+          });
+
+        attributes.$observe('gebo', function(newValue) {
+            scope.gebo = newValue;
+            _compileWhenReady(scope, element);
+          });
+
+        attributes.$observe('content', function(newValue) {
+            scope.content = newValue;
+            _compileWhenReady(scope, element);
+          });
+      };
+
+    var _compileWhenReady = function(scope, element) {
+        element.html($templateCache.get('templates/request-control.html'));
+        $compile(element.contents())(scope);
       };
 
     /**
@@ -131,29 +156,12 @@ angular.module('gebo-client-performatives.requestControl',
      */
     var _controller = function($scope, $element, $attrs, $transclude) {
 
-            $attrs.$observe('sender', function(newValue) {
-                $scope.sender = newValue;
-              });
-    
-            $attrs.$observe('receiver', function(newValue) {
-                $scope.receiver = newValue;
-              });
-    
-            $attrs.$observe('action', function(newValue) {
-                $scope.action = newValue;
-              });
-
-            $attrs.$observe('gebo', function(newValue) {
-                $scope.gebo = newValue;
-              });
-
-
-            /**
-             * request
-             */
-            $scope.request = function() {
-                    Request.request($scope.sender, $scope.receiver, $scope.action, $scope.gebo);
-                };
+        /**
+         * request
+         */
+        $scope.request = function() {
+            Request.request($scope.sender, $scope.receiver, $scope.action, $scope.gebo);
+          };
       };
 
     return {
@@ -211,7 +219,8 @@ angular.module("templates/client-reply-request.html", []).run(["$templateCache",
 
 angular.module("templates/request-control.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("templates/request-control.html",
-    "<button class=\"btn btn-small\" ng-click=\"request()\">\n" +
+    "<button class=\"btn btn-small\" ng-click=\"request()\"\n" +
+    "        ng-disabled=\"!'{{sender}}' || !'{{receiver}}' || !'{{action}}' || !'{{gebo}}'\">\n" +
     "    <span class=\"glyphicon glyphicon-envelope\"></span>\n" +
     "</button>\n" +
     "");

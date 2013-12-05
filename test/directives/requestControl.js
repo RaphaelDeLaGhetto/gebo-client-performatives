@@ -72,7 +72,10 @@ describe('Directive: requestControl', function () {
 
         var blank = angular.element('<div></div>');
         angular.element(blank).append(template);
-    
+
+        // Trigger watchers
+        scope.$apply();
+   
         return blank.html();
     }
 
@@ -128,7 +131,39 @@ describe('Directive: requestControl', function () {
             expect(_message.performative).toEqual('request');
             expect(_message.action).toEqual('friend');
             expect(_message.conversationId).toBe(undefined);
+            expect(_message.content).toBe(undefined);
+            expect(element.children().prop('disabled')).toBeFalsy();
         });
+
+        it('should be disabled if \'sender\' attribute is not set', function() {
+            element = _createDirective(CLIENT, SERVER, ACTION, GEBO,
+                    '<request-control receiver="{{receiver}}" action="{{action}}" gebo="{{gebo}}">' + 
+                    '</request-control>'); 
+            expect(element.children().prop('disabled')).toBeTruthy();
+        });
+
+        it('should be disabled if \'receiver\' attribute is not set', function() {
+            element = _createDirective(CLIENT, SERVER, ACTION, GEBO,
+                    '<request-control sender="{{sender}}" action="{{action}}" gebo="{{gebo}}">' + 
+                    '</request-control>'); 
+            expect(element.children().prop('disabled')).toBeTruthy();
+        });
+
+        it('should be disabled if \'action\' attribute is not set', function() {
+            element = _createDirective(CLIENT, SERVER, ACTION, GEBO,
+                    '<request-control sender="{{sender}}" receiver="{{receiver}}" gebo="{{gebo}}">' + 
+                    '</request-control>'); 
+            expect(element.children().prop('disabled')).toBeTruthy();
+        });
+
+        it('should be disabled if \'gebo\' attribute is not set', function() {
+            element = _createDirective(CLIENT, SERVER, ACTION, GEBO,
+                    '<request-control sender="{{sender}}" receiver="{{receiver}}" action="{{action}}">' + 
+                    '</request-control>'); 
+            expect(element.children().prop('disabled')).toBeTruthy();
+        });
+
+
     });
 });
 

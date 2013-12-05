@@ -1,3 +1,4 @@
-<button class="btn btn-small" ng-click="request()">
+<button class="btn btn-small" ng-click="request()"
+        ng-disabled="!'{{sender}}' || !'{{receiver}}' || !'{{action}}' || !'{{gebo}}'">
     <span class="glyphicon glyphicon-envelope"></span>
 </button>
